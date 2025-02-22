@@ -1,0 +1,115 @@
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .formGroup label {
+    font-weight: 500;
+    color: #444;
+  }
+  
+  .formGroup input,
+  .formGroup textarea {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .formGroup textarea {
+    resize: vertical;
+  }
+  
+  .submitButton {
+    background: #007bff;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background: #0056b3;
+  }
+  
+  .submitButton:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    color: #dc3545;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #f8d7da;
+    border-radius: 4px;
+  }
+  
+  .success {
+    color: #155724;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #d4edda;
+    border-radius: 4px;
+  }
+
+  .projectsList {
+    margin-top: 3rem;
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+  }
+  
+  .projectsList h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .projectItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .deleteButton {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .deleteButton:hover {
+    background: #bb2d3b;
+  }
