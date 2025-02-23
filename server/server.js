@@ -9,7 +9,8 @@ const fs = require('fs').promises;
 
 const app = express();
 
-const CLIENT_PUBLIC = path.join(__dirname, '../client/public/uploads');
+const STATIC_UPLOADS_DIR = '/var/www/uploads'; // Changed from CLIENT_PUBLIC
+const STATIC_BASE_URL = process.env.BASE_URL
 
 // Database configuration
 const pool = new Pool({
@@ -134,8 +135,14 @@ if (process.env.NODE_ENV === "production") {
 // Add new project (admin only)
 // Configure file storage
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, CLIENT_PUBLIC);
+  destination: async (req, file, cb) => {
+    try {
+      // Ensure directory exists
+      await fs.mkdir(STATIC_UPLOADS_DIR, { recursive: true });
+      cb(null, STATIC_UPLOADS_DIR);
+    } catch (err) {
+      cb(err);
+    }
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -174,8 +181,8 @@ app.post("/api/projects",
 
     try {
       const imageUrl = req.file 
-        ? `/uploads/${req.file.filename}`
-        : null;
+      ? `${STATIC_BASE_URL}/uploads/${req.file.filename}` // Use static server URL
+      : null;
 
       const projectUrl = `${process.env.BASE_URL}${projectPath}`;
 
