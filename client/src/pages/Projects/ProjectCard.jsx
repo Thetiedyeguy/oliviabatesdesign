@@ -43,22 +43,6 @@ const ProjectCard = ({ project, type = 'full' }) => {
       <div className={styles.contentFull}>
         <h3 className={styles.title}>{project.title}</h3>
         <p className={styles.description}>{project.description}</p>
-        <div className={styles.meta}>
-          {project.date && (
-            <time className={styles.date}>
-              {new Date(project.date).toLocaleDateString()}
-            </time>
-          )}
-        </div>
-        {project.tags && (
-          <div className={styles.tags}>
-            {project.tags.map((tag, index) => (
-              <span key={index} className={styles.tag}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
         <a
           href={project.projectUrl}
           className={styles.fullButton}
