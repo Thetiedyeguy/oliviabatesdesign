@@ -5,107 +5,126 @@
   transition: transform 0.3s ease;
 }
 
-.cardLink:hover {
-  transform: translateY(-5px);
-}
-
-.card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  height: 100%;
-  position: relative;
-  cursor: pointer; /* Add hand cursor indication */
-}
-  
-  .imageContainer {
-    aspect-ratio: 16/9;
-    background-color: #f8f9fa;
-    position: relative;
-  }
-  
-  .image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .content {
-    padding: 1.5rem;
-  }
-  
-  .title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    color: #2c3e50;
-  }
-  
-  .description {
-    color: #666;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-  }
-  
-  .meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .date {
-    color: #7f8c8d;
-  }
-  
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  .tag {
-    background: #ecf0f1;
-    color: #2c3e50;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
-
-  .projectsList {
-  margin-top: 3rem;
-  border-top: 1px solid #eee;
-  padding-top: 2rem;
-}
-
-.projectsList h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #333;
-}
-
-.projectItem {
+/* Simplistic Type Styles */
+.cardSimplistic {
+  width: 300px;
+  height: 300px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  background: #f8f9fa;
-  margin-bottom: 0.5rem;
-  border-radius: 4px;
+  padding: 1.5rem;
 }
 
-.deleteButton {
-  background: #dc3545;
+.imageSimplistic {
+  width: 220px;
+  height: 220px;
+  background: #6D4C41;
+  border-radius: 50%;
+  padding: 10px;
+  position: relative;
+}
+
+.imageSimplistic img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: white;
+  padding: 8px;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.simplisticTitle {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #fdffdb;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  text-align: end;
+  color: #fdffdb;
+  margin: 1rem;
+}
+
+.description {
+  font-size: 1rem;
+  text-align: end;
+  color: #fdffdb;
+  margin: 1rem;
+}
+
+/* Full Type Styles */
+.cardFull {
+  display: flex;
+  gap: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.imageFull {
+  margin-left: 10%;
+  position: relative;
+  flex: 0 0 300px;
+  overflow: visible;
+}
+
+.imageFull::before,
+.imageFull::after {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  border: 2px solid #fdffdb;
+  z-index: 1;
+}
+
+.imageFull::before {
+  top: -15%;
+  right: -15%;
+}
+
+.imageFull::after {
+  bottom: -15%;
+  left: -15%
+}
+
+.imageFull img {
+  position: relative;
+  z-index: 2;
+  width: 115%;
+  height: 115%;
+  object-fit: cover;
+}
+
+.contentFull {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-right: 2rem;
+}
+
+.fullButton {
+  align-self: flex-end;
+  margin-top: auto;
+  margin: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #2c3e50;
   color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 25px;
+  text-decoration: none;
   transition: background 0.3s ease;
 }
 
-.deleteButton:hover {
-  background: #bb2d3b;
+.fullButton:hover {
+  background: #34495e;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

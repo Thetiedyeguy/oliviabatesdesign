@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ProjectCard from './ProjectCard';
-import axios from 'axios';
 import styles from './Projects.module.css';
 import ProjectFinder from '../../apis/ProjectFinder';
 
@@ -40,7 +39,8 @@ const Projects = () => {
 
   return (
     <div className={styles.projectsContainer}>
-      <h1 className={styles.pageTitle}>Design Projects</h1>
+      <h1 className={styles.pageTitle}>Work</h1>
+      <p className={styles.description}>I’m a recent graduate of UC Davis, where I got to explore the exciting intersection of interactive products and innovative materials. I love designing solutions that are not just functional but also sustainable, using cutting-edge materials to create engaging, thoughtful designs. Here are some of my favorite projects!</p>
       <div className={styles.projectsGrid}>
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />

@@ -1,17 +1,40 @@
+.page {
+  background-color: white;
+  width: 99%;
+  margin: auto;
+}
 .hero {
-    text-align: center;
+    text-align: left;
     padding: 4rem 2rem;
   }
   
   .title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #333;
+    font-size: 4rem;
+    margin: 1rem auto;
+    max-width: 50rem;
+    color: #26471a;
   }
   
   .subtitle {
     font-size: 1.25rem;
-    color: #666;
-    max-width: 600px;
+    color: #26471a;
+    max-width: 50rem;
+    margin: 1rem auto;
+  }
+  .link {
+    font-size: 1.25rem;
+    color: #8b6a15;
+    max-width: 50rem;
     margin: 0 auto;
+    display: block;
+  }
+
+  .featured {
+    background-color: #26471a;
+  }
+
+  .projectsGrid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }

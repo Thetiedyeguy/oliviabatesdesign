@@ -1,13 +1,15 @@
 .container {
-    min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #fdffdb;
   }
   
   .header {
-    background-color: #ffffff;
+    background-color: #26471a;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem 2rem;
+    width: 98%;
+    margin: auto;
   }
   
   .nav {
@@ -21,7 +23,7 @@
   .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #333;
+    color: #fdffdb;
     text-decoration: none;
   }
   
@@ -31,21 +33,31 @@
   }
   
   .navLink {
-    color: #666;
+    color: #fdffdb;
     text-decoration: none;
     transition: color 0.3s ease;
   }
+
+  .activeLink {
+    color: #fdffdb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    text-decoration: underline;
+  }
   
+  .activeLink:hover {
+    color: #fdffdb;
+  }
+
   .navLink:hover {
     color: #000;
   }
   
   .main {
     flex: 1;
-    padding: 2rem;
-    max-width: 1200px;
     margin: 0 auto;
-    width: 100%;
+    width: 98%;
+    background-color: #26471a;
   }
   
   .footer {
