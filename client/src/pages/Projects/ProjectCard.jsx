@@ -12,17 +12,17 @@ const ProjectCard = ({ project, type = 'full' }) => {
         aria-label={`View ${project.title} project`}
       >
         <article className={`${styles.card} ${styles.cardSimplistic}`}>
-          <h3 className={styles.simplisticTitle}>{project.title}</h3>
           <div className={styles.imageSimplistic}>
             {project.imageUrl && (
               <img
-                src={project.imageUrl}
-                alt={project.title}
-                className={styles.image}
-                loading="lazy"
+              src={project.imageUrl}
+              alt={project.title}
+              className={styles.image}
+              loading="lazy"
               />
             )}
           </div>
+          <h3 className={styles.simplisticTitle}>{project.title}</h3>
         </article>
       </a>
     );
