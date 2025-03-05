@@ -21,7 +21,7 @@
   }
   
   .logo {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: 700;
     color: #fdffdb;
     text-decoration: none;
@@ -36,6 +36,7 @@
     color: #fdffdb;
     text-decoration: none;
     transition: color 0.3s ease;
+    margin: auto;
   }
 
   .activeLink {
@@ -50,7 +51,7 @@
   }
 
   .navLink:hover {
-    color: #000;
+    color: #cdcfbb;
   }
   
   .main {

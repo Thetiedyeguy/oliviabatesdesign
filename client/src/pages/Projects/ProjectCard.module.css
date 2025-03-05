@@ -70,7 +70,7 @@
 .imageFull {
   position: relative;
   margin-left: 10%;
-  flex: 1 2 50%; /* Flexible basis */
+  flex: 1 1 1%; /* Flexible basis */
   overflow: visible;
   width: 90%;
   max-width: 300px;

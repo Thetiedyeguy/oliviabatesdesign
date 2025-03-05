@@ -7,7 +7,13 @@ const Layout = ({ children }) => {
     <div className={styles.container}>
       <header className={styles.header}>
         <nav className={styles.nav}>
-          <h1 className={styles.logo}>Lassie Charms</h1>
+            <NavLink 
+              to="/" 
+              end // Add this for exact match
+              className={styles.logo}
+            >
+              Lassie Charms
+            </NavLink>
           <div className={styles.navLinks}>
             <NavLink 
               to="/" 
