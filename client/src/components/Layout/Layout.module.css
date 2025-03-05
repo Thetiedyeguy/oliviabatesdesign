@@ -14,13 +14,15 @@
   
   .nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes logo left and nav right */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 1rem; /* Add horizontal padding */
   }
   
   .logo {
+    margin-right: 2rem;
     font-size: 3rem;
     font-weight: 700;
     color: #fdffdb;
@@ -29,7 +31,10 @@
   
   .navLinks {
     display: flex;
-    gap: 2rem;
+    gap: 1rem; /* Reduced from 2rem */
+    justify-content: flex-end; /* Align links to the right */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    margin-left: auto; /* Push links to the right */
   }
   
   .navLink {
@@ -37,12 +42,16 @@
     text-decoration: none;
     transition: color 0.3s ease;
     margin: auto;
+    white-space: nowrap;
+    padding: 0.5rem;
   }
 
   .activeLink {
     color: #fdffdb;
-    text-decoration: none;
     transition: color 0.3s ease;
+    margin: auto;
+    white-space: nowrap;
+    padding: 0.5rem;
     text-decoration: underline;
   }
   

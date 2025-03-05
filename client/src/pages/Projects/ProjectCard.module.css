@@ -43,7 +43,7 @@
 
 .title {
   font-size: 5rem;
-  position: absolute;
+  position: relative;
   top: -30%;
   padding-left: 20%;
   text-align: left;
@@ -53,8 +53,8 @@
 .description {
   font-size: 1rem;
   text-align: left;
-  position: absolute;
-  top: +35%;
+  position: relative;
+  top: -35%;
   padding-left: 21%;
   color: #fdffdb;
 }
