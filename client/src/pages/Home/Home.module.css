@@ -35,5 +35,5 @@
 
   .projectsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17%, 22%));
+    grid-template-columns: repeat(auto-fit, minmax(22%, 400px));
   }
