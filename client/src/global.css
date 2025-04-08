@@ -4,17 +4,20 @@ html {
 
 @font-face {
     font-family: 'Kyiv';
-    src: url('\\..\\public\\fonts\\KyivTypeSerif-Regular.otf') format('opentype');
+    src: url('./assets/fonts/KyivTypeSerif-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Kolker';
-    src: url('\\..\\public\\fonts\\KolkerBrush-Regular.ttf') format('opentype');
+    src: url('./assets/fonts/KolkerBrush-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+
+
+  
 
 html, body {
     margin: 0;
