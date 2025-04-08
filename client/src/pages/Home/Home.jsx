@@ -54,16 +54,24 @@ const Home = () => {
   return (
     <div className ={styles.page}>
       <section className={styles.hero}>
-        <h1 className={styles.title}>Innovating with materials for a greener tomorrow</h1>
-        <p className={styles.subtitle}>Hello! I’m Olivia Bates, a product and material designer dedicated to sustainable innovation. I explore the intersection of design, functionality, and eco-conscious materials to create products that are both beautiful and responsible.</p>
-        <Link to ="/projects" className={styles.link}>Peruse My Portfolio =&gt;</Link>
+        <p className={styles.greeting}>
+          Hello, my name is Olivia Bates
+        </p>
+        <p className={styles.desc}>
+          Aiming for a Greener Tomorrow using stronger design thinking
+        </p>
       </section>
       <section className={styles.featured}>
-      <div className={styles.projectsGrid}>
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} type='simplistic'/>
-        ))}
-      </div>
+        <p className={styles.featuredTitle}>
+          Featured Work
+        </p>
+      </section>
+      <section className={styles.projectsGrid}>
+        <div className={styles.projectsGrid}>
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
       </section>
     </div>
   );

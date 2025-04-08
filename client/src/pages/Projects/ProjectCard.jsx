@@ -49,7 +49,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          See More →
+          Read More   →
         </a>
       </div>
     </div>

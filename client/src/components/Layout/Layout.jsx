@@ -1,36 +1,21 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom'; // Change to NavLink
+import { NavLink, Outlet } from 'react-router-dom';
 import styles from './Layout.module.css';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <nav className={styles.nav}>
-          <NavLink 
-              to="/" 
-              end // Add this for exact match
-              className={styles.logo}
-            >
-              Lassie Charms
-            </NavLink>
           <div className={styles.navLinks}>
             <NavLink 
               to="/" 
-              end // Add this for exact match
+              end
               className={({ isActive }) => 
                 isActive ? styles.activeLink : styles.navLink
               }
             >
               HOME
-            </NavLink>
-            <NavLink 
-              to="/projects"
-              className={({ isActive }) => 
-                isActive ? styles.activeLink : styles.navLink
-              }
-            >
-              WORK
             </NavLink>
             <NavLink 
               to="/about"
@@ -41,23 +26,20 @@ const Layout = ({ children }) => {
               ABOUT
             </NavLink>
             <NavLink 
-              to="/contact"
+              to="/projects"
               className={({ isActive }) => 
                 isActive ? styles.activeLink : styles.navLink
               }
             >
-              CONTACT
+              TIMELINE
             </NavLink>
           </div>
         </nav>
       </header>
 
-      <main className={styles.main}><Outlet /></main>
-
-      {/* <footer className={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Design Portfolio</p>
-      </footer> */}
-
+      <main className={styles.main}>
+        <Outlet />
+      </main>
     </div>
   );
 };
