@@ -15,13 +15,13 @@
 }
   
 .desc {
-  padding-top: 10rem;
-  padding-bottom: 2rem;
+  padding-top: 9rem;
+  padding-bottom: 1.5rem;
   font-family: 'Kyiv', sans-serif;
-  font-size: 2.5rem;
+  font-size: 3rem;
   max-width: 30rem;
   color: #594123;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
   .title {
@@ -51,4 +51,52 @@
     gap: 2rem;
     grid-template-columns: 1;
     background-color: #BEA776;
+  }
+
+  .header {
+    width: 100%;
+    /* No explicit background color, so it remains transparent and shows the container’s background */
+  }
+  
+  .nav {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+  
+  .navLink {
+    color: #F0C892;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin: auto;
+    white-space: nowrap;
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .activeLink {
+    color: #F0C892;
+    transition: color 0.3s ease;
+    margin: auto;
+    white-space: nowrap;
+    padding: 0.5rem;
+    text-decoration: underline;
+    font-size: 1.5rem;
+  }
+  
+  .activeLink:hover {
+    color: #fdffdb;
+  }
+  
+  .navLink:hover {
+    color: #cdcfbb;
   }

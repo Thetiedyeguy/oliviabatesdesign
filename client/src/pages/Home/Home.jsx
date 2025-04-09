@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Home.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import ProjectFinder from '../../apis/ProjectFinder';
 import ProjectCard from '../Projects/ProjectCard';
 
@@ -53,6 +53,37 @@ const Home = () => {
 
   return (
     <div className ={styles.page}>
+      <header className={styles.header}>
+        <nav className={styles.nav}>
+          <div className={styles.navLinks}>
+            <NavLink 
+              to="/" 
+              end
+              className={({ isActive }) => 
+                isActive ? styles.activeLink : styles.navLink
+              }
+            >
+              HOME
+            </NavLink>
+            <NavLink 
+              to="/about"
+              className={({ isActive }) => 
+                isActive ? styles.activeLink : styles.navLink
+              }
+            >
+              ABOUT
+            </NavLink>
+            <NavLink 
+              to="/projects"
+              className={({ isActive }) => 
+                isActive ? styles.activeLink : styles.navLink
+              }
+            >
+              TIMELINE
+            </NavLink>
+          </div>
+        </nav>
+      </header>
       <section className={styles.hero}>
         <p className={styles.greeting}>
           Hello, my name is Olivia Bates

@@ -1,59 +1,85 @@
-.projectsContainer {
-    padding: 0;
-    background-color: white;
-    width: 99.5%;
-    margin: auto;
-  }
+/***********************************************
+ * Horizontal Scroll Container 
+ ***********************************************/
+.projectsHorizontalScroll {
+  /* The overall container that scrolls horizontally */
+  display: flex;
+  flex-direction: row;
+  /* Ensure it fills at least the viewport width or the parent container */
+  width: 100vw; 
+  height: 100vh; /* Adjust if needed; or remove if you want it to auto-size vertically */
   
-  .pageTitle {
-    font-size: 6rem;
-    color: #26471a;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto 0;
-    padding: 0 2rem;
-  }
+  /* Enable horizontal scrolling */
+  overflow-x: auto;
+  overflow-y: hidden;
+  
+  /* Optional: add a background gradient like your sky-to-sand effect */
+  background: linear-gradient(
+    to bottom,
+    /* Top gradient: starts at 0% and goes to just before the halfway mark */
+    #336E9C, 
+    #80A9A9 49.5%,
+    /* Dark brown divider at the midpoint */
+    #4F3D33 49.6%,
+    #4F3D33 50.4%,
+    /* Beige bottom: starts just after the divider */
+    #BEA776 50.5%,
+    #BEA776 100%
+  );
 
-  .description {
-    color: #26471a;
-    font-size: 1.25rem;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto 3rem;
-    padding: 0 2rem;
-  }
+  /* If you want snapping between each project “panel,” you can add:
+     scroll-snap-type: x mandatory;
+  */
+}
+
+/***********************************************
+ * Individual Project Slide
+ ***********************************************/
+.projectSlide {
+  /* Each “slide” takes up the full viewport width (or adjust as needed) */
+  min-width: 100vw;
   
-  .projectsGrid {
-    display: grid;
-    width: 100%;
-    gap: 2rem;
-    grid-template-columns: 1;
-    background-color: #26471a;
-  }
+  /* Vertically and horizontally center the content if desired */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   
-  .loadingContainer {
-    display: grid;
-    place-items: center;
-    height: 50vh;
+  /* If you want a specific background color behind each project's card 
+     (e.g., a brown box), you can do something like: */
+  /* background-color: #594123; */
+
+  /* Optional if using scroll snapping:
+     scroll-snap-align: start;
+  */
+}
+
+/***********************************************
+ * Loader / Error / Other Existing Styles
+ ***********************************************/
+.loadingContainer {
+  display: grid;
+  place-items: center;
+  height: 50vh;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .loadingSpinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  .errorMessage {
-    color: #e74c3c;
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.2rem;
-  }
+}
+
+.errorMessage {
+  color: #e74c3c;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}

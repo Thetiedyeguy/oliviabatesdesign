@@ -12,8 +12,8 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         const response = await ProjectFinder.get("/");
-        console.log(response)
-        setProjects(response.data.data)
+        console.log(response);
+        setProjects(response.data.data);
       } catch (err) {
         setError('Failed to load projects. Please try again later.');
         console.error('Projects fetch error:', err);
@@ -38,16 +38,17 @@ const Projects = () => {
   }
 
   return (
-    <div className={styles.projectsContainer}>
-      <h1 className={styles.pageTitle}>Work</h1>
-      <p className={styles.description}>I’m a recent graduate of UC Davis, where I got to explore the exciting intersection of interactive products and innovative materials. I love designing solutions that are not just functional but also sustainable, using cutting-edge materials to create engaging, thoughtful designs. Here are some of my favorite projects!</p>
-      <div className={styles.projectsGrid}>
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+    <div className={styles.projectsHorizontalScroll}>
+      {projects.map((project) => (
+        <div className={styles.projectSlide} key={project.id}>
+          {/* Each "slide" in the horizontal scroll */}
+          <ProjectCard project={project} type="timeline" />
+        </div>
+      ))}
     </div>
   );
 };
+
+
 
 export default Projects;
