@@ -25,39 +25,12 @@ const ProjectCard = ({ project, type = 'full' }) => {
             )}
           </div>
         </div>
-        <div className={styles.contentTimeline}>
-          <a
-            href={project.projectUrl}
-            className={styles.fullButton}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read More →
-          </a>
-        </div>
       </div>
     );
   } else if (type === 'timeline-bottom') {
     return (
       <div className={`${styles.card} ${styles.cardTimeline}`}>
         <div className={styles.timelineWrapper}>
-          <div className={styles.contentTimeline}>
-            {/* New flex container for header items */}
-            <div className={styles.timelineHeader}>
-              <p className={styles.timelineTitle}>{project.title}</p>
-              <p className={styles.timelineDescription}>
-                {new Date(project.date).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' })}
-              </p>
-            </div>
-            <a
-              href={project.projectUrl}
-              className={styles.fullButton}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read More   →
-            </a>
-          </div>
           <div className={styles.imageTimeline}>
             {project.imageUrl && (
               <img
@@ -67,6 +40,15 @@ const ProjectCard = ({ project, type = 'full' }) => {
                 loading="lazy"
               />
             )}
+          </div>
+          <div className={styles.contentTimeline}>
+            {/* New flex container for header items */}
+            <div className={styles.timelineHeader}>
+              <p className={styles.timelineTitle}>{project.title}</p>
+              <p className={styles.timelineDescription}>
+                {new Date(project.date).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' })}
+              </p>
+            </div>
           </div>
         </div>
       </div>

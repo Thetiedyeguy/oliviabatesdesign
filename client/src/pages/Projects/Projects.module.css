@@ -11,7 +11,7 @@
   height: 100vh; /* Adjust if needed; or remove if you want it to auto-size vertically */
   
   /* Enable horizontal scrolling */
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
   
   /* Optional: add a background gradient like your sky-to-sand effect */
