@@ -3,7 +3,6 @@
  ***********************************************/
 .projectsHorizontalScroll {
   /* The overall container that scrolls horizontally */
-  padding-left: 15rem;
   display: flex;
   flex-direction: row;
   /* Ensure it fills at least the viewport width or the parent container */
@@ -11,8 +10,8 @@
   height: 100vh; /* Adjust if needed; or remove if you want it to auto-size vertically */
   
   /* Enable horizontal scrolling */
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
   
   /* Optional: add a background gradient like your sky-to-sand effect */
   background: linear-gradient(
@@ -83,4 +82,25 @@
   text-align: center;
   padding: 2rem;
   font-size: 1.2rem;
+}
+
+.beginningInfo{
+  padding-top: 10rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+.intro{
+  color: #DEDEDE;
+  font-family: 'Serif';
+  width: 16.5rem;
+}
+
+.timelineSection{
+  padding-top: 7.5rem;
+}
+
+.timeline{
+  color: #DEDEDE;
+  font-family: 'Serif-Light';
 }
