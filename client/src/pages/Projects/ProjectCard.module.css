@@ -5,58 +5,22 @@
   transition: transform 0.3s ease;
 }
 
-/* Simplistic Type Styles */
-.cardSimplistic {
-  width: 300px;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1.5rem;
-}
-
-.imageSimplistic {
-  width: 220px;
-  height: 220px;
-  background: #6D4C41;
-  border-radius: 50%;
-  padding: 10px;
-  position: relative;
-}
-
-.imageSimplistic img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: white;
-  padding: 8px;
-  object-fit: cover;
-  box-sizing: border-box;
-}
-
-.simplisticTitle {
-  font-size: 1.5rem;
-  text-align: center;
-  color: #fdffdb;
-  margin-bottom: 1rem;
-}
-
 .title {
-  font-family: 'Kyiv';
+  font-family: 'Italiana';
   font-size: 3rem;
   position: relative;
   padding-left: 15%;
   text-align: left;
-  color: #594123;
+  color: #6E816B;
 }
 
 .description {
-  font-family: 'Kyiv';
+  font-family: 'Serif-Light';
   font-size: 2rem;
   text-align: left;
   position: relative;
   padding-left: 16%;
-  color: #594123;
+  color: #6E816B;
 }
 
 /* Full Type Styles */
@@ -75,7 +39,7 @@
   max-width: 300px;
   align-self: center;
   padding: 2rem;
-  background-color: #594123;
+  background-color: #6E816B;
 }
 
 .contentFull {
@@ -87,18 +51,18 @@
 }
 
 .fullButton {
-  font-family: 'kolker';
-  font-size: 3rem;
+  font-family: 'Italiana';
+  font-size: 1rem;
   text-align: left;
   position: relative;
   margin-left: 16%;
-  color: #594123;
+  color: #6E816B;
   margin-right: auto;
   text-decoration: none;
 }
 
 .fullButton:hover {
-  color: #392103;
+  color: #4E614B;
   text-decoration: underline;
 }
 
@@ -114,3 +78,57 @@
 .projectSlide {
   scroll-snap-align: start;
 }
+
+.cardTimeline {
+  width: 100%;
+}
+
+.cardTimelineTop {
+  width: 100%;
+  margin-top: 13rem;
+}
+
+.imageTimeline img {
+  width: 100%;              /* Image takes the full width of its container */
+  height: 100%;             /* Fills the container's height */
+  object-fit: cover;        /* Scales and crops the image to cover the container fully */
+  border-radius: 1rem;
+}
+
+/* This wrapper gives both header and image the same fixed width and horizontal margin */
+
+/* Header container to display title and description side-by-side */
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 32rem;
+}
+
+/* Remove any extra padding from header elements so they align neatly */
+.timelineTitle {
+  font-family: 'Italiana';
+  font-size: 2.5rem;
+  color: #DEDEDE;
+  margin: 0;           /* Remove any extra padding */
+  text-align: left;
+}
+
+.timelineDescription {
+  font-family: 'Serif';
+  font-size: 2rem;
+  color: #DEDEDE;
+  margin: 0;
+  text-align: right;
+}
+
+/* Existing image timeline styles */
+.imageTimeline {
+  position: relative;
+  flex: 1 1 1%;
+  overflow: hidden;
+  width: 32rem;
+  height: 18rem;
+  align-self: center;
+}
+

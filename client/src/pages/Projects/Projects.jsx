@@ -39,10 +39,13 @@ const Projects = () => {
 
   return (
     <div className={styles.projectsHorizontalScroll}>
-      {projects.map((project) => (
+      {projects.map((project, index) => (
         <div className={styles.projectSlide} key={project.id}>
           {/* Each "slide" in the horizontal scroll */}
-          <ProjectCard project={project} type="timeline" />
+          <ProjectCard
+            project={project}
+            type={index % 2 === 0 ? "timeline-top" : "timeline-bottom"}
+          />
         </div>
       ))}
     </div>

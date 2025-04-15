@@ -8,20 +8,22 @@
   }
 
 .greeting {
-  font-family: 'Kyiv', sans-serif;
+  font-family: 'Italiana', sans-serif;
   font-size: 5rem;
-  max-width: 50rem;
-  color: #F0C892;
+  max-width: 40rem;
+  margin-left: 10rem;
+  color: #6E816B;
 }
   
 .desc {
-  padding-top: 9rem;
-  padding-bottom: 1.5rem;
-  font-family: 'Kyiv', sans-serif;
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+  font-family: 'Serif-Light', sans-serif;
   font-size: 3rem;
   max-width: 30rem;
-  color: #594123;
+  color: #6E816B;
   margin: 0.5rem;
+  margin-left: 10rem;
 }
 
   .title {
@@ -30,19 +32,20 @@
   
   .subtitle {
     font-size: 1.25rem;
-    color: #26471a;
+    color: #6E816B;
     max-width: 50rem;
   }
 
   .featured {
     text-align: center;
-    background-color: #594123;
+    background-color: #6E816B;
   }
   .featuredTitle {
-    color: #F0C892;
-    font-size: 8.5rem;
-    font-family: 'Kolker';
+    color: #DEDEDE;
+    font-size: 5rem;
+    font-family: 'Italiana';
     margin: 0;
+    padding: 2rem;
   }
 
   .projectsGrid {
@@ -50,7 +53,7 @@
     width: 100%;
     gap: 2rem;
     grid-template-columns: 1;
-    background-color: #BEA776;
+    background-color: #DEDEDE;
   }
 
   .header {
@@ -74,7 +77,7 @@
   }
   
   .navLink {
-    color: #F0C892;
+    color: #6E816B;
     text-decoration: none;
     transition: color 0.3s ease;
     margin: auto;
@@ -84,7 +87,7 @@
   }
   
   .activeLink {
-    color: #F0C892;
+    color: #4E614B;
     transition: color 0.3s ease;
     margin: auto;
     white-space: nowrap;
@@ -94,9 +97,9 @@
   }
   
   .activeLink:hover {
-    color: #fdffdb;
+    color: #6E816B;
   }
   
   .navLink:hover {
-    color: #cdcfbb;
+    color: #8EA18B;
   }

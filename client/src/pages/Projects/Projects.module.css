@@ -3,6 +3,7 @@
  ***********************************************/
 .projectsHorizontalScroll {
   /* The overall container that scrolls horizontally */
+  padding-left: 15rem;
   display: flex;
   flex-direction: row;
   /* Ensure it fills at least the viewport width or the parent container */
@@ -17,14 +18,14 @@
   background: linear-gradient(
     to bottom,
     /* Top gradient: starts at 0% and goes to just before the halfway mark */
-    #336E9C, 
-    #80A9A9 49.5%,
+    #6E816B, 
+    #6E816B 58.9%,
     /* Dark brown divider at the midpoint */
-    #4F3D33 49.6%,
-    #4F3D33 50.4%,
+    #DEDEDE 59.0%,
+    #DEDEDE 60.0%,
     /* Beige bottom: starts just after the divider */
-    #BEA776 50.5%,
-    #BEA776 100%
+    #6E816B 60.1%,
+    #6E816B 100%
   );
 
   /* If you want snapping between each project “panel,” you can add:
@@ -37,7 +38,7 @@
  ***********************************************/
 .projectSlide {
   /* Each “slide” takes up the full viewport width (or adjust as needed) */
-  min-width: 100vw;
+  min-width: 75vw;
   
   /* Vertically and horizontally center the content if desired */
   display: flex;

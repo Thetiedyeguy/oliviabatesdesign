@@ -16,6 +16,34 @@ html {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Italiana';
+    src: url('./assets/fonts/Italiana-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Serif-Bold';
+    src: url('./assets/fonts/SourceSerifPro-Bold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Serif-Light';
+    src: url('./assets/fonts/SourceSerifPro-Light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Serif';
+    src: url('./assets/fonts/SourceSerifPro-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
   
 
