@@ -36,12 +36,23 @@ app.get("/api/projects", async (req, res) => {
   try {
     const { rows } = await pool.query(`
       SELECT id, title, description, 
-        square_image_url AS "squareImageUrl",
-        rectangular_image_url AS "rectangularImageUrl",
+        square_image_filename AS "squareImageFilename",
+        rectangular_image_filename AS "rectangularImageFilename",
         project_url AS "projectUrl", date, featured
       FROM projects
       ORDER BY date DESC;
     `);
+    
+    // Transform filenames to full URLs.
+    rows.forEach(project => {
+      if (project.squareImageFilename) {
+        project.squareImageUrl = `${process.env.BASE_URL}/uploads/${project.squareImageFilename}`;
+      }
+      if (project.rectangularImageFilename) {
+        project.rectangularImageUrl = `${process.env.BASE_URL}/uploads/${project.rectangularImageFilename}`;
+      }
+    });
+
     res.status(200).json({ status: "success", data: rows });
   } catch (err) {
     console.error(err);
@@ -49,13 +60,14 @@ app.get("/api/projects", async (req, res) => {
   }
 });
 
+
 // Get single project
 app.get("/api/projects/:id", async (req, res) => {
   try {
     const { rows } = await pool.query(
       `SELECT id, title, subtitle, description, 
-        square_image_url AS "squareImageUrl",
-        rectangular_image_url AS "rectangularImageUrl",
+        square_image_filename AS "squareImageFilename",
+        rectangular_image_filename AS "rectangularImageFilename",
         project_url AS "projectUrl", date, featured
       FROM projects 
       WHERE id = $1`,
@@ -66,12 +78,23 @@ app.get("/api/projects/:id", async (req, res) => {
       return res.status(404).json({ status: "error", message: "Project not found" });
     }
     
+    // Transform filenames to full URLs.
+    rows.forEach(project => {
+      if (project.squareImageFilename) {
+        project.squareImageUrl = `${process.env.BASE_URL}/uploads/${project.squareImageFilename}`;
+      }
+      if (project.rectangularImageFilename) {
+        project.rectangularImageUrl = `${process.env.BASE_URL}/uploads/${project.rectangularImageFilename}`;
+      }
+    });
+    
     res.status(200).json({ status: "success", data: rows[0] });
   } catch (err) {
     console.error(err);
     res.status(500).json({ status: "error", message: "Failed to fetch project" });
   }
 });
+
 
 // Get all skills
 app.get("/api/skills", async (req, res) => {
@@ -81,6 +104,15 @@ app.get("/api/skills", async (req, res) => {
       FROM skills
       ORDER BY proficiency DESC
     `);
+    rows.forEach(project => {
+      if (project.squareImageFilename) {
+        project.squareImageUrl = `${process.env.BASE_URL}/uploads/${project.squareImageFilename}`;
+      }
+      if (project.rectangularImageFilename) {
+        project.rectangularImageUrl = `${process.env.BASE_URL}/uploads/${project.rectangularImageFilename}`;
+      }
+    });
+    
     res.status(200).json({ status: "success", data: rows });
   } catch (err) {
     console.error(err);
@@ -164,19 +196,13 @@ const upload = multer({
 });
 
 
-const uploadFields = upload.fields([
-  { name: 'squareImage', maxCount: 1 },
-  { name: 'rectangularImage', maxCount: 1 }
-]);
-
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, '/var/www/uploads')));
 
 // Update the projects POST route
-app.post("/api/projects", uploadFields, async (req, res) => {
-  const { title, subtitle, description, projectPath, date, featured } = req.body;
-  
-  // Validate required fields
+app.post("/api/projects", async (req, res) => {
+  const { title, subtitle, description, projectPath, date, featured, squareImage, rectangularImage } = req.body;
+
   if (!title || !description) {
     return res.status(400).json({
       status: "error",
@@ -185,36 +211,25 @@ app.post("/api/projects", uploadFields, async (req, res) => {
   }
 
   try {
-    // Process square image if available
-    const squareImageFile = req.files?.squareImage ? req.files.squareImage[0] : null;
-    const rectangularImageFile = req.files?.rectangularImage ? req.files.rectangularImage[0] : null;
-
-    const squareImageUrl = squareImageFile
-      ? `${process.env.BASE_URL}/uploads/${squareImageFile.filename}`
-      : null;
-    const rectangularImageUrl = rectangularImageFile
-      ? `${process.env.BASE_URL}/uploads/${rectangularImageFile.filename}`
-      : null;
-
-    // Convert featured value to boolean (checkboxes usually return "on" or "true" strings)
-    const isFeatured = featured === 'true' || featured === 'on';
-
+    // Since you're manually uploading images to your public folder,
+    // the database now only stores the image filenames.
+    // Calculate projectUrl if necessary.
     const projectUrl = `${process.env.BASE_URL}${projectPath}`;
-    
+
     const { rows } = await pool.query(
       `INSERT INTO projects 
-      (title, subtitle, description, square_image_url, rectangular_image_url, project_url, date, featured)
+      (title, subtitle, description, square_image_filename, rectangular_image_filename, project_url, date, featured)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING id, title, subtitle, date, featured`,
       [
         title,
         subtitle,
         description,
-        squareImageUrl,
-        rectangularImageUrl,
+        squareImage || null,
+        rectangularImage || null,
         projectUrl,
         date || new Date().toISOString(),
-        isFeatured
+        featured === true || featured === 'true'
       ]
     );
 
@@ -230,6 +245,8 @@ app.post("/api/projects", uploadFields, async (req, res) => {
     });
   }
 });
+
+
 
 
 app.patch("/api/projects/:id", async (req, res) => {
@@ -275,11 +292,6 @@ app.patch("/api/projects/:id", async (req, res) => {
 app.delete("/api/projects/:id", 
   async (req, res) => {
     try {
-      // First get the project to find image path
-      const project = await pool.query(
-        `SELECT square_image_url, rectangular_image_url FROM projects WHERE id = $1`,
-        [req.params.id]
-      );
       
 
       // Delete the project
@@ -296,18 +308,7 @@ app.delete("/api/projects/:id",
       }
 
       // Delete associated image file
-      if (project.rows[0]?.square_image_url) {
-        const squarePath = path.join(__dirname, 'public', project.rows[0].square_image_url);
-        fs.unlink(squarePath, (err) => {
-          if (err) console.error('Error deleting square image:', err);
-        });
-      }
-      if (project.rows[0]?.rectangular_image_url) {
-        const rectPath = path.join(__dirname, 'public', project.rows[0].rectangular_image_url);
-        fs.unlink(rectPath, (err) => {
-          if (err) console.error('Error deleting rectangular image:', err);
-        });
-      }
+
       
 
       res.status(200).json({
@@ -320,18 +321,6 @@ app.delete("/api/projects/:id",
         status: "error",
         message: "Failed to delete project"
       });
-    }
-    if (project.rows[0]?.image_url) {
-      const imagePath = path.join(
-        __dirname, 
-        'public', 
-        project.rows[0].image_url
-      );
-      try {
-        await fs.unlink(imagePath);
-      } catch (err) {
-        console.error('Error deleting image:', err);
-      }
     }
   }
 );

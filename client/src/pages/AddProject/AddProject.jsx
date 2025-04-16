@@ -10,10 +10,11 @@ const AddProject = () => {
     description: '',
     projectPath: '',
     date: '',
-    squareImage: null,
-    rectangularImage: null,
+    squareImage: '',            // Now a string
+    rectangularImage: '',       // Now a string
     featured: false
   });
+  
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -58,27 +59,23 @@ const AddProject = () => {
     setError('');
     setSuccess(false);
   
-    const formPayload = new FormData();
-    formPayload.append('title', formData.title);
-    formPayload.append('subtitle', formData.subtitle);
-    formPayload.append('description', formData.description);
-    formPayload.append('projectPath', formData.projectPath);
-    formPayload.append('date', formData.date);
-    formPayload.append('featured', formData.featured);
-    
-    // Append files if provided
-    if (formData.squareImage) {
-      formPayload.append('squareImage', formData.squareImage);
-    }
-    if (formData.rectangularImage) {
-      formPayload.append('rectangularImage', formData.rectangularImage);
-    }
+    // Prepare a JSON object with your formData.
+    const payload = {
+      title: formData.title,
+      subtitle: formData.subtitle,
+      description: formData.description,
+      projectPath: formData.projectPath,
+      date: formData.date,
+      featured: formData.featured,
+      // For image filenames, we keep them as strings:
+      squareImage: formData.squareImage,
+      rectangularImage: formData.rectangularImage,
+    };
   
     try {
-      await ProjectFinder.post('', formPayload, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        }
+      // Since we are now sending JSON, our axios instance will set the correct header.
+      await ProjectFinder.post('', payload, {
+        headers: { 'Content-Type': 'application/json' },
       });
       setSuccess(true);
       setFormData({
@@ -87,9 +84,9 @@ const AddProject = () => {
         description: '',
         projectPath: '',
         date: '',
-        squareImage: null,
-        rectangularImage: null,
-        featured: false
+        squareImage: '',
+        rectangularImage: '',
+        featured: false,
       });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add project');
@@ -98,20 +95,14 @@ const AddProject = () => {
     }
   };
   
+  
+  
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-  };
-
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: files[0]
-    }));
   };
 
   const updateFeaturedStatus = async (projectId, newStatus) => {
@@ -169,24 +160,27 @@ const AddProject = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label>Square Image</label>
+          <label>Square Image Filename</label>
           <input
-            type="file"
+            type="text"
             name="squareImage"
-            onChange={handleFileChange}
-            accept="image/*"
+            value={formData.squareImage}
+            onChange={handleChange}
+            placeholder="e.g., my-image.jpg"
           />
         </div>
 
         <div className={styles.formGroup}>
-          <label>Rectangular Image</label>
+          <label>Rectangular Image Filename</label>
           <input
-            type="file"
+            type="text"
             name="rectangularImage"
-            onChange={handleFileChange}
-            accept="image/*"
+            value={formData.rectangularImage}
+            onChange={handleChange}
+            placeholder="e.g., hero-image.jpg"
           />
         </div>
+
 
         <div className={styles.formGroup}>
           <label>Project Path (e.g., /projects/1)</label>

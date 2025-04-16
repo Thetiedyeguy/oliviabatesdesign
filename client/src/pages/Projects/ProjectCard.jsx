@@ -15,7 +15,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
             </p>
           </div>
           <div className={styles.imageTimeline}>
-            {project.imageUrl && (
+            {project.rectangularImageUrl && (
               <img
                 src={project.rectangularImageUrl}
                 alt={project.title}
@@ -32,7 +32,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
       <div className={`${styles.card} ${styles.cardTimeline}`}>
         <div className={styles.timelineWrapper}>
           <div className={styles.imageTimeline}>
-            {project.imageUrl && (
+            {project.rectangularImageUrl && (
               <img
                 src={project.rectangularImageUrl}
                 alt={project.title}
@@ -59,7 +59,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
   return (
     <div className={`${styles.card} ${styles.cardFull}`}>
       <div className={styles.imageFull}>
-        {project.imageUrl && (
+        {project.squareImageUrl && (
           <img
             src={project.squareImageUrl}
             alt={project.title}

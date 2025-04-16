@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Home.module.css';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import ProjectFinder from '../../apis/ProjectFinder';
 import ProjectCard from '../Projects/ProjectCard';
 
