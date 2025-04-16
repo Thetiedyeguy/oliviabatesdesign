@@ -150,10 +150,10 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ 
+const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
+    console.log('Received file:', file.originalname, 'size:', file.size);
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
     } else {
@@ -161,6 +161,7 @@ const upload = multer({
     }
   }
 });
+
 
 const uploadFields = upload.fields([
   { name: 'squareImage', maxCount: 1 },
@@ -201,9 +202,9 @@ app.post("/api/projects", uploadFields, async (req, res) => {
     
     const { rows } = await pool.query(
       `INSERT INTO projects 
-       (title, subtitle, description, square_image_url, rectangular_image_url, project_url, date, featured)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id, title, subtitle, date, featured`,
+      (title, subtitle, description, square_image_url, rectangular_image_url, project_url, date, featured)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING id, title, subtitle, date, featured`,
       [
         title,
         subtitle,
