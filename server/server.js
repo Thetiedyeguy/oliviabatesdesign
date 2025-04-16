@@ -46,10 +46,10 @@ app.get("/api/projects", async (req, res) => {
     // Transform filenames to full URLs.
     rows.forEach(project => {
       if (project.squareImageFilename) {
-        project.squareImageUrl = `${process.env.BASE_URL}/uploads/${project.squareImageFilename}`;
+        project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
       }
       if (project.rectangularImageFilename) {
-        project.rectangularImageUrl = `${process.env.BASE_URL}/uploads/${project.rectangularImageFilename}`;
+        project.rectangularImageUrl = `${process.env.BASE_URL}/${project.rectangularImageFilename}`;
       }
     });
 
@@ -81,10 +81,10 @@ app.get("/api/projects/:id", async (req, res) => {
     // Transform filenames to full URLs.
     rows.forEach(project => {
       if (project.squareImageFilename) {
-        project.squareImageUrl = `${process.env.BASE_URL}/uploads/${project.squareImageFilename}`;
+        project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
       }
       if (project.rectangularImageFilename) {
-        project.rectangularImageUrl = `${process.env.BASE_URL}/uploads/${project.rectangularImageFilename}`;
+        project.rectangularImageUrl = `${process.env.BASE_URL}/${project.rectangularImageFilename}`;
       }
     });
     
