@@ -170,7 +170,7 @@ const uploadFields = upload.fields([
 ]);
 
 // Serve static files
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '/var/www/uploads')));
 
 // Update the projects POST route
 app.post("/api/projects", uploadFields, async (req, res) => {
@@ -277,9 +277,10 @@ app.delete("/api/projects/:id",
     try {
       // First get the project to find image path
       const project = await pool.query(
-        'SELECT image_url FROM projects WHERE id = $1',
+        `SELECT square_image_url, rectangular_image_url FROM projects WHERE id = $1`,
         [req.params.id]
       );
+      
 
       // Delete the project
       const { rowCount } = await pool.query(
@@ -295,16 +296,19 @@ app.delete("/api/projects/:id",
       }
 
       // Delete associated image file
-      if (project.rows[0]?.image_url) {
-        const imagePath = path.join(
-          __dirname, 
-          'public', 
-          project.rows[0].image_url
-        );
-        fs.unlink(imagePath, (err) => {
-          if (err) console.error('Error deleting image:', err);
+      if (project.rows[0]?.square_image_url) {
+        const squarePath = path.join(__dirname, 'public', project.rows[0].square_image_url);
+        fs.unlink(squarePath, (err) => {
+          if (err) console.error('Error deleting square image:', err);
         });
       }
+      if (project.rows[0]?.rectangular_image_url) {
+        const rectPath = path.join(__dirname, 'public', project.rows[0].rectangular_image_url);
+        fs.unlink(rectPath, (err) => {
+          if (err) console.error('Error deleting rectangular image:', err);
+        });
+      }
+      
 
       res.status(200).json({
         status: "success",
