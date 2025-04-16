@@ -40,7 +40,7 @@ app.get("/api/projects", async (req, res) => {
         rectangular_image_filename AS "rectangularImageFilename",
         project_url AS "projectUrl", date, featured
       FROM projects
-      ORDER BY date DESC;
+      ORDER BY date ASC;
     `);
     
     // Transform filenames to full URLs.

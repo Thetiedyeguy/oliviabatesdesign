@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ProjectCard from './ProjectCard';
 import styles from './Projects.module.css';
 import ProjectFinder from '../../apis/ProjectFinder';
@@ -7,6 +7,8 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [lineWidth, setLineWidth] = useState(0)
+  const scrollRef = useRef(null)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -25,6 +27,22 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      setLineWidth(scrollRef.current.scrollWidth)
+    }
+  }, [projects])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (scrollRef.current) {
+        setLineWidth(scrollRef.current.scrollWidth)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
@@ -37,8 +55,10 @@ const Projects = () => {
     return <div className={styles.errorMessage}>{error}</div>;
   }
 
+  console.log(lineWidth);
+
   return (
-    <div className={styles.projectsHorizontalScroll}>
+    <div ref={scrollRef} className={styles.projectsHorizontalScroll} style={{'--line-width': `${lineWidth}px`}}>
       <div className={styles.beginningInfo}>
         <p className={styles.intro}>This is work from my time at</p>
         <h1 className={styles.intro}>University of California - Davis</h1>

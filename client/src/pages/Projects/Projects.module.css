@@ -1,36 +1,29 @@
 /***********************************************
  * Horizontal Scroll Container 
  ***********************************************/
-.projectsHorizontalScroll {
-  /* The overall container that scrolls horizontally */
+ .projectsHorizontalScroll {
+  position: relative;
   display: flex;
   flex-direction: row;
-  /* Ensure it fills at least the viewport width or the parent container */
-  width: 100vw; 
-  height: 100vh; /* Adjust if needed; or remove if you want it to auto-size vertically */
-  
-  /* Enable horizontal scrolling */
+  align-items: center;
+  height: 100vh;
   overflow-x: auto;
-  overflow-y: auto;
-  
-  /* Optional: add a background gradient like your sky-to-sand effect */
-  background: linear-gradient(
-    to bottom,
-    /* Top gradient: starts at 0% and goes to just before the halfway mark */
-    #6E816B, 
-    #6E816B 58.9%,
-    /* Dark brown divider at the midpoint */
-    #DEDEDE 59.0%,
-    #DEDEDE 60.0%,
-    /* Beige bottom: starts just after the divider */
-    #6E816B 60.1%,
-    #6E816B 100%
-  );
-
-  /* If you want snapping between each project “panel,” you can add:
-     scroll-snap-type: x mandatory;
-  */
+  background-color: #6E816B;
+  /* no more hard‑coded width */
 }
+
+.projectsHorizontalScroll::before {
+  content: "";
+  position: absolute;
+  top: 60%;
+  left: 0;
+  width: var(--line-width);       /* ← dynamically set from React */
+  height: 0.5rem;
+  background: white;
+  transform: translateY(-60%);
+  pointer-events: none;
+}
+
 
 /***********************************************
  * Individual Project Slide
@@ -85,9 +78,10 @@
 }
 
 .beginningInfo{
-  padding-top: 10rem;
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-top: 10vh;
+  padding-left: 8vw;
+  padding-right: 20vw;
+  padding-bottom: 6vh;
 }
 
 .intro{
@@ -97,7 +91,7 @@
 }
 
 .timelineSection{
-  padding-top: 7.5rem;
+  padding-top: 12vh;
 }
 
 .timeline{

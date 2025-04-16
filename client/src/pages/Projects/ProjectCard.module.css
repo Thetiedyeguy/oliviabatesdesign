@@ -81,11 +81,12 @@
 
 .cardTimeline {
   width: 100%;
+  margin-top: 5vh;
 }
 
 .cardTimelineTop {
   width: 100%;
-  margin-top: 13rem;
+  margin-top: 30vh;
 }
 
 .imageTimeline img {
@@ -102,13 +103,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 32rem;
+  width: 30vw;
 }
 
 /* Remove any extra padding from header elements so they align neatly */
 .timelineTitle {
   font-family: 'Italiana';
-  font-size: 2.5rem;
+  font-size: 3vw;
   color: #DEDEDE;
   margin: 0;           /* Remove any extra padding */
   text-align: left;
@@ -116,7 +117,7 @@
 
 .timelineDescription {
   font-family: 'Serif';
-  font-size: 2rem;
+  font-size: 2vw;
   color: #DEDEDE;
   margin: 0;
   text-align: right;
@@ -127,8 +128,8 @@
   position: relative;
   flex: 1 1 1%;
   overflow: hidden;
-  width: 32rem;
-  height: 18rem;
+  width: 32vw;
+  height: auto;
   align-self: center;
 }
 
