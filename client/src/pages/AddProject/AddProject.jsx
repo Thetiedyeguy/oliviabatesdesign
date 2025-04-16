@@ -21,6 +21,7 @@ const AddProject = () => {
   const [projects, setProjects] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [projectToDelete, setProjectToDelete] = useState(null);
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -59,7 +60,6 @@ const AddProject = () => {
     setError('');
     setSuccess(false);
   
-    // Prepare a JSON object with your formData.
     const payload = {
       title: formData.title,
       subtitle: formData.subtitle,
@@ -67,17 +67,26 @@ const AddProject = () => {
       projectPath: formData.projectPath,
       date: formData.date,
       featured: formData.featured,
-      // For image filenames, we keep them as strings:
       squareImage: formData.squareImage,
       rectangularImage: formData.rectangularImage,
     };
   
     try {
-      // Since we are now sending JSON, our axios instance will set the correct header.
-      await ProjectFinder.post('', payload, {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      if (editingId) {
+        // EDIT existing project
+        const res = await ProjectFinder.patch(`/${editingId}`, payload);
+        // update local list
+        setProjects(prev =>
+          prev.map(p => p.id === editingId ? { ...p, ...res.data.data } : p)
+        );
+        setEditingId(null);
+      } else {
+        // CREATE new project
+        const res = await ProjectFinder.post('', payload);
+        setProjects(prev => [res.data.data, ...prev]);
+      }
       setSuccess(true);
+      // reset form
       setFormData({
         title: '',
         subtitle: '',
@@ -86,10 +95,10 @@ const AddProject = () => {
         date: '',
         squareImage: '',
         rectangularImage: '',
-        featured: false,
+        featured: false
       });
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to add project');
+      setError(err.response?.data?.message || 'Failed to save project');
     } finally {
       setLoading(false);
     }
@@ -118,7 +127,9 @@ const AddProject = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Add New Project</h1>
+      <h1 className={styles.title}>
+        {editingId ? 'Edit Project' : 'Add New Project'}
+      </h1>
       
       {success && (
         <div className={styles.success}>Project added successfully!</div>
@@ -222,8 +233,32 @@ const AddProject = () => {
           className={styles.submitButton}
           disabled={loading}
         >
-          {loading ? 'Adding...' : 'Add Project'}
+          {loading
+            ? editingId ? 'Saving…' : 'Adding…'
+            : editingId ? 'Save Changes' : 'Add Project'}
         </button>
+
+        {editingId && (
+          <button
+            type="button"
+            onClick={() => {
+              setEditingId(null);
+              setFormData({
+                title: '',
+                subtitle: '',
+                description: '',
+                projectPath: '',
+                date: '',
+                squareImage: '',
+                rectangularImage: '',
+                featured: false
+              });
+            }}
+            className={styles.cancelButton}
+          >
+            Cancel
+          </button>
+        )}
       </form>
 
       <div className={styles.projectsList}>
@@ -235,6 +270,28 @@ const AddProject = () => {
               { project.subtitle && <em> — {project.subtitle}</em> }
             </div>
             <div className={styles.actionButtons}>
+            <button
+              className={styles.editButton}
+              onClick={() => {
+                // enter edit mode
+                setEditingId(project.id);
+                setFormData({
+                title: project.title,
+                subtitle: project.subtitle || '',
+                description: project.description || '',
+                projectPath: project.projectUrl.replace(
+                  /^https?:\/\/[^/]+/,  // strip off protocol and host
+                  ''
+                ),
+                date: project.date?.slice(0,10) || '',
+                squareImage: project.squareImageFilename || '',
+                rectangularImage: project.rectangularImageFilename || '',
+                featured: project.featured
+              });
+            }}
+            >
+              Edit
+            </button>
               <button
                 onClick={() => {
                   // Toggle featured: if currently featured, unfeature; if not, feature.

@@ -132,4 +132,28 @@
     display: flex;
     gap: 0.5rem;
   }
+
+  .editButton {
+    background: #ffc107;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .editButton:hover {
+    background: #e0a800;
+  }
+  
+  .cancelButton {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+  
   

@@ -35,7 +35,7 @@ app.get("/api/health", (req, res) => {
 app.get("/api/projects", async (req, res) => {
   try {
     const { rows } = await pool.query(`
-      SELECT id, title, description, 
+      SELECT id, title, subtitle, description, 
         square_image_filename AS "squareImageFilename",
         rectangular_image_filename AS "rectangularImageFilename",
         project_url AS "projectUrl", date, featured
@@ -250,41 +250,60 @@ app.post("/api/projects", async (req, res) => {
 
 
 app.patch("/api/projects/:id", async (req, res) => {
-  const { featured } = req.body; // other fields can be updated as well
-  
-  // Validate that 'featured' is provided, if that's the only update
-  if (featured === undefined) {
+  const {
+    title, subtitle, description,
+    projectPath, date, featured,
+    squareImage, rectangularImage
+  } = req.body;
+
+  // basic validation
+  if (!title || !description) {
     return res.status(400).json({
       status: "error",
-      message: "Featured status is required"
+      message: "Title and description are required"
     });
   }
-  
+
   try {
-    const { rowCount, rows } = await pool.query(
-      `UPDATE projects SET featured = $1 WHERE id = $2 RETURNING id, featured`,
-      [featured === 'true' || featured === true, req.params.id]
+    const projectUrl = `${process.env.BASE_URL}${projectPath}`;
+    const { rows, rowCount } = await pool.query(
+      `UPDATE projects
+         SET title = $1,
+             subtitle = $2,
+             description = $3,
+             square_image_filename = $4,
+             rectangular_image_filename = $5,
+             project_url = $6,
+             date = $7,
+             featured = $8
+       WHERE id = $9
+       RETURNING id, title, subtitle, description, project_url AS "projectUrl",
+                 date, featured,
+                 square_image_filename AS "squareImageFilename",
+                 rectangular_image_filename AS "rectangularImageFilename"`,
+      [
+        title,
+        subtitle,
+        description,
+        squareImage || null,
+        rectangularImage || null,
+        projectUrl,
+        date || new Date().toISOString(),
+        featured === true || featured === 'true',
+        req.params.id
+      ]
     );
-    
+
     if (rowCount === 0) {
-      return res.status(404).json({
-        status: "error",
-        message: "Project not found"
-      });
+      return res.status(404).json({ status: "error", message: "Project not found" });
     }
-    
-    res.status(200).json({
-      status: "success",
-      data: rows[0]
-    });
+    res.status(200).json({ status: "success", data: rows[0] });
   } catch (err) {
     console.error(err);
-    res.status(500).json({
-      status: "error",
-      message: "Failed to update project"
-    });
+    res.status(500).json({ status: "error", message: "Failed to update project" });
   }
 });
+
 
 
 
