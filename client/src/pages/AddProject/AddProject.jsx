@@ -75,7 +75,7 @@ const AddProject = () => {
     }
   
     try {
-      await ProjectFinder.post('/api/projects', formPayload, {
+      await ProjectFinder.post('', formPayload, {
         headers: {
             'Content-Type': 'multipart/form-data',
         }
