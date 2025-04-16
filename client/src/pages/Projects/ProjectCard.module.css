@@ -38,8 +38,13 @@
   overflow: visible;
   max-width: 300px;
   align-self: center;
-  padding: 2rem;
+  padding: 1rem;
   background-color: #6E816B;
+}
+
+.imageFull img{
+  margin-left: -0.8rem;
+  margin-top: -0.8rem;
 }
 
 .contentFull {
