@@ -36,11 +36,11 @@ app.get("/api/projects", async (req, res) => {
   try {
     const { rows } = await pool.query(`
       SELECT id, title, description, 
-             image_url AS "imageUrl", 
-             project_url AS "projectUrl", 
-             date, tags
+        square_image_url AS "squareImageUrl",
+        rectangular_image_url AS "rectangularImageUrl",
+        project_url AS "projectUrl", date, featured
       FROM projects
-      ORDER BY date DESC
+      ORDER BY date DESC;
     `);
     res.status(200).json({ status: "success", data: rows });
   } catch (err) {
@@ -53,12 +53,12 @@ app.get("/api/projects", async (req, res) => {
 app.get("/api/projects/:id", async (req, res) => {
   try {
     const { rows } = await pool.query(
-      `SELECT id, title, description, 
-              image_url AS "imageUrl", 
-              project_url AS "projectUrl", 
-              date, tags
-       FROM projects 
-       WHERE id = $1`,
+      `SELECT id, title, subtitle, description, 
+        square_image_url AS "squareImageUrl",
+        rectangular_image_url AS "rectangularImageUrl",
+        project_url AS "projectUrl", date, featured
+      FROM projects 
+      WHERE id = $1`,
       [req.params.id]
     );
     
@@ -162,58 +162,112 @@ const upload = multer({
   }
 });
 
+const uploadFields = upload.fields([
+  { name: 'squareImage', maxCount: 1 },
+  { name: 'rectangularImage', maxCount: 1 }
+]);
+
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // Update the projects POST route
-app.post("/api/projects", 
-  upload.single('image'),
-  async (req, res) => {
-    const { title, description, projectPath, date, tags } = req.body;
-    
-    // Validate required fields
-    if (!title || !description) {
-      return res.status(400).json({
-        status: "error",
-        message: "Title and description are required"
-      });
-    }
+app.post("/api/projects", uploadFields, async (req, res) => {
+  const { title, subtitle, description, projectPath, date, featured } = req.body;
+  
+  // Validate required fields
+  if (!title || !description) {
+    return res.status(400).json({
+      status: "error",
+      message: "Title and description are required"
+    });
+  }
 
-    try {
-      const imageUrl = req.file 
-      ? `${STATIC_BASE_URL}/uploads/${req.file.filename}` // Use static server URL
+  try {
+    // Process square image if available
+    const squareImageFile = req.files?.squareImage ? req.files.squareImage[0] : null;
+    const rectangularImageFile = req.files?.rectangularImage ? req.files.rectangularImage[0] : null;
+
+    const squareImageUrl = squareImageFile
+      ? `${process.env.BASE_URL}/uploads/${squareImageFile.filename}`
+      : null;
+    const rectangularImageUrl = rectangularImageFile
+      ? `${process.env.BASE_URL}/uploads/${rectangularImageFile.filename}`
       : null;
 
-      const projectUrl = `${process.env.BASE_URL}${projectPath}`;
+    // Convert featured value to boolean (checkboxes usually return "on" or "true" strings)
+    const isFeatured = featured === 'true' || featured === 'on';
 
-      const { rows } = await pool.query(
-        `INSERT INTO projects 
-         (title, description, image_url, project_url, date, tags)
-         VALUES ($1, $2, $3, $4, $5, $6)
-         RETURNING id, title, date`,
-        [
-          title,
-          description,
-          imageUrl,
-          projectUrl,
-          date || new Date().toISOString(),
-          tags ? tags.split(',') : []
-        ]
-      );
+    const projectUrl = `${process.env.BASE_URL}${projectPath}`;
+    
+    const { rows } = await pool.query(
+      `INSERT INTO projects 
+       (title, subtitle, description, square_image_url, rectangular_image_url, project_url, date, featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       RETURNING id, title, subtitle, date, featured`,
+      [
+        title,
+        subtitle,
+        description,
+        squareImageUrl,
+        rectangularImageUrl,
+        projectUrl,
+        date || new Date().toISOString(),
+        isFeatured
+      ]
+    );
 
-      res.status(201).json({
-        status: "success",
-        data: rows[0]
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({
+    res.status(201).json({
+      status: "success",
+      data: rows[0]
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Failed to create project"
+    });
+  }
+});
+
+
+app.patch("/api/projects/:id", async (req, res) => {
+  const { featured } = req.body; // other fields can be updated as well
+  
+  // Validate that 'featured' is provided, if that's the only update
+  if (featured === undefined) {
+    return res.status(400).json({
+      status: "error",
+      message: "Featured status is required"
+    });
+  }
+  
+  try {
+    const { rowCount, rows } = await pool.query(
+      `UPDATE projects SET featured = $1 WHERE id = $2 RETURNING id, featured`,
+      [featured === 'true' || featured === true, req.params.id]
+    );
+    
+    if (rowCount === 0) {
+      return res.status(404).json({
         status: "error",
-        message: "Failed to create project"
+        message: "Project not found"
       });
     }
+    
+    res.status(200).json({
+      status: "success",
+      data: rows[0]
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Failed to update project"
+    });
   }
-);
+});
+
+
 
 // Add delete project route
 app.delete("/api/projects/:id", 

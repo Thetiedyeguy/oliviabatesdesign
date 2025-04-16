@@ -99,9 +99,11 @@ const Home = () => {
       </section>
       <section className={styles.projectsGrid}>
         <div className={styles.projectsGrid}>
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+          {projects
+            .filter(project => project.featured)
+            .map(project => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
         </div>
       </section>
     </div>

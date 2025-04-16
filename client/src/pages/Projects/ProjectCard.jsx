@@ -17,7 +17,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
           <div className={styles.imageTimeline}>
             {project.imageUrl && (
               <img
-                src={project.imageUrl}
+                src={project.rectangularImageUrl}
                 alt={project.title}
                 className={styles.image}
                 loading="lazy"
@@ -34,7 +34,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
           <div className={styles.imageTimeline}>
             {project.imageUrl && (
               <img
-                src={project.imageUrl}
+                src={project.rectangularImageUrl}
                 alt={project.title}
                 className={styles.image}
                 loading="lazy"
@@ -61,7 +61,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
       <div className={styles.imageFull}>
         {project.imageUrl && (
           <img
-            src={project.imageUrl}
+            src={project.squareImageUrl}
             alt={project.title}
             className={styles.image}
             loading="lazy"

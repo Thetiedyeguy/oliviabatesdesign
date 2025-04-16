@@ -113,3 +113,23 @@
   .deleteButton:hover {
     background: #bb2d3b;
   }
+
+  .featuredButton {
+    background: #28a745; /* Green background */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .featuredButton:hover {
+    background: #218838;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  

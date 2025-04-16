@@ -6,11 +6,13 @@ import ProjectFinder from '../../apis/ProjectFinder';
 const AddProject = () => {
   const [formData, setFormData] = useState({
     title: '',
+    subtitle: '',
     description: '',
-    imageUrl: '',
-    projectUrl: '',
+    projectPath: '',
     date: '',
-    tags: ''
+    squareImage: null,
+    rectangularImage: null,
+    featured: false
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -55,19 +57,25 @@ const AddProject = () => {
     setLoading(true);
     setError('');
     setSuccess(false);
-
+  
     const formPayload = new FormData();
     formPayload.append('title', formData.title);
+    formPayload.append('subtitle', formData.subtitle);
     formPayload.append('description', formData.description);
     formPayload.append('projectPath', formData.projectPath);
     formPayload.append('date', formData.date);
-    formPayload.append('tags', formData.tags);
-    if (formData.image) {
-      formPayload.append('image', formData.image);
+    formPayload.append('featured', formData.featured);
+    
+    // Append files if provided
+    if (formData.squareImage) {
+      formPayload.append('squareImage', formData.squareImage);
     }
-
+    if (formData.rectangularImage) {
+      formPayload.append('rectangularImage', formData.rectangularImage);
+    }
+  
     try {
-      await ProjectFinder.post('/', formPayload, {
+      await ProjectFinder.post('/api/projects', formPayload, {
         headers: {
             'Content-Type': 'multipart/form-data',
         }
@@ -75,11 +83,13 @@ const AddProject = () => {
       setSuccess(true);
       setFormData({
         title: '',
+        subtitle: '',
         description: '',
-        imageUrl: '',
-        projectUrl: '',
+        projectPath: '',
         date: '',
-        tags: ''
+        squareImage: null,
+        rectangularImage: null,
+        featured: false
       });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add project');
@@ -87,6 +97,7 @@ const AddProject = () => {
       setLoading(false);
     }
   };
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -96,11 +107,23 @@ const AddProject = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      image: e.target.files[0]
-    });
+    const { name, files } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: files[0]
+    }));
   };
+
+  const updateFeaturedStatus = async (projectId, newStatus) => {
+    try {
+      await ProjectFinder.patch(`/${projectId}`, { featured: newStatus });
+      // Update local state after success
+    } catch (err) {
+      console.error("Failed to update featured status:", err);
+    }
+  };
+  
+  
 
   return (
     <div className={styles.container}>
@@ -125,6 +148,16 @@ const AddProject = () => {
         </div>
 
         <div className={styles.formGroup}>
+          <label>Subtitle</label>
+          <input
+            type="text"
+            name="subtitle"
+            value={formData.subtitle}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={styles.formGroup}>
           <label>Description *</label>
           <textarea
             name="description"
@@ -136,24 +169,34 @@ const AddProject = () => {
         </div>
 
         <div className={styles.formGroup}>
-            <label>Project Image</label>
-            <input
+          <label>Square Image</label>
+          <input
             type="file"
-            name="image"
+            name="squareImage"
             onChange={handleFileChange}
             accept="image/*"
-            />
+          />
         </div>
 
         <div className={styles.formGroup}>
-            <label>Project Path (e.g., /projects/1)</label>
-            <input
+          <label>Rectangular Image</label>
+          <input
+            type="file"
+            name="rectangularImage"
+            onChange={handleFileChange}
+            accept="image/*"
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Project Path (e.g., /projects/1)</label>
+          <input
             type="text"
             name="projectPath"
             value={formData.projectPath}
             onChange={handleChange}
             required
-            />
+          />
         </div>
 
         <div className={styles.formGroup}>
@@ -167,14 +210,17 @@ const AddProject = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label>Tags (comma-separated)</label>
-          <input
-            type="text"
-            name="tags"
-            value={formData.tags}
-            onChange={handleChange}
-            placeholder="UI Design, Web, Mobile"
-          />
+          <label>
+            <input
+              type="checkbox"
+              name="featured"
+              checked={formData.featured}
+              onChange={(e) =>
+                setFormData({ ...formData, featured: e.target.checked })
+              }
+            />
+            Featured Project
+          </label>
         </div>
 
         <button 
@@ -185,23 +231,39 @@ const AddProject = () => {
           {loading ? 'Adding...' : 'Add Project'}
         </button>
       </form>
+
       <div className={styles.projectsList}>
         <h2>Existing Projects</h2>
         {projects.map(project => (
           <div key={project.id} className={styles.projectItem}>
-            <span>#{project.id} - {project.title}</span>
-            <button
-              onClick={() => {
-                setProjectToDelete(project);
-                setShowDeleteModal(true);
-              }}
-              className={styles.deleteButton}
-            >
-              Delete
-            </button>
+            <div>
+              <span>#{project.id} - {project.title}</span>
+              { project.subtitle && <em> — {project.subtitle}</em> }
+            </div>
+            <div className={styles.actionButtons}>
+              <button
+                onClick={() => {
+                  // Toggle featured: if currently featured, unfeature; if not, feature.
+                  updateFeaturedStatus(project.id, !project.featured);
+                }}
+                className={styles.featuredButton}
+              >
+                {project.featured ? "Unfeature" : "Feature"}
+              </button>
+              <button
+                onClick={() => {
+                  setProjectToDelete(project);
+                  setShowDeleteModal(true);
+                }}
+                className={styles.deleteButton}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))}
       </div>
+
 
       {showDeleteModal && (
         <ConfirmationModal
