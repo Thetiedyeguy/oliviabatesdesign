@@ -22,7 +22,7 @@
   font-size: 3rem;
   max-width: 30rem;
   color: #6E816B;
-  margin: 0.5rem;
+  margin: -0.5rem;
   margin-left: 10rem;
 }
 
@@ -45,7 +45,7 @@
     font-size: 5rem;
     font-family: 'Italiana';
     margin: 0;
-    padding: 2rem;
+    padding: 3rem;
   }
 
   .projectsGrid {

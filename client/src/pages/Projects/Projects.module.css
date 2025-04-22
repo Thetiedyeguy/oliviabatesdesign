@@ -5,7 +5,6 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  align-items: center;
   height: 100vh;
   overflow-x: auto;
   background-color: #6E816B;
@@ -15,7 +14,7 @@
 .projectsHorizontalScroll::before {
   content: "";
   position: absolute;
-  top: 60%;
+  top: 60vh;
   left: 0;
   width: var(--line-width);       /* ← dynamically set from React */
   height: 0.5rem;
@@ -34,8 +33,7 @@
   
   /* Vertically and horizontally center the content if desired */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 60vh;
   
   /* If you want a specific background color behind each project's card 
      (e.g., a brown box), you can do something like: */
@@ -77,11 +75,18 @@
   font-size: 1.2rem;
 }
 
-.beginningInfo{
-  padding-top: 10vh;
-  padding-left: 8vw;
-  padding-right: 20vw;
-  padding-bottom: 6vh;
+.beginningInfo {
+  position: relative;   /* establishes a new stacking context */
+  z-index: 1;           /* so it renders on top of the ::before */
+  padding-right: 40vw;
+}
+
+
+.introSection{
+  position: absolute;                  
+  top: 60vh;                      /* exactly at the line */
+  left: 8vw;
+  transform: translateY(-15rem);
 }
 
 .intro{
@@ -90,9 +95,24 @@
   width: 16.5rem;
 }
 
-.timelineSection{
-  padding-top: 12vh;
+.timelineSection {
+  position: absolute;                  
+  top: 62vh;                      /* exactly at the line */
+  left: 8vw;      
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  pointer-events: none;           /* so the line remains click‑through */
+  z-index: 1;                     /* above the line */
+  padding: 0;
+  margin: 0;
 }
+.timelineSection p {
+  margin: 0;
+  position: relative;
+}
+
 
 .timeline{
   color: #DEDEDE;

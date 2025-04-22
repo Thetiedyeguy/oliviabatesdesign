@@ -60,9 +60,11 @@ const Projects = () => {
   return (
     <div ref={scrollRef} className={styles.projectsHorizontalScroll} style={{'--line-width': `${lineWidth}px`}}>
       <div className={styles.beginningInfo}>
-        <p className={styles.intro}>This is work from my time at</p>
-        <h1 className={styles.intro}>University of California - Davis</h1>
-        <p className={styles.intro}>While persuing a B.A. in Design and a B.A. in Communications</p>
+        <div className={styles.introSection}>
+          <p className={styles.intro}>This is work from my time at</p>
+          <h1 className={styles.intro}>University of California - Davis</h1>
+          <p className={styles.intro}>While persuing a B.A. in Design and a B.A. in Communications</p>
+        </div>
         <div className={styles.timelineSection}>
           <p className={styles.timeline}>Start Fall 2021</p>
           <p className={styles.timeline}>End Winter 2025</p>

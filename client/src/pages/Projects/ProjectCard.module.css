@@ -99,12 +99,12 @@
 
 .cardTimeline {
   width: 100%;
-  margin-top: 5vh;
+  margin-top: -5vw;
 }
 
 .cardTimelineTop {
   width: 100%;
-  margin-top: 30vh;
+  margin-top: -15vw;
 }
 
 .imageTimeline img {
