@@ -70,6 +70,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
       </div>
       <div className={styles.contentFull}>
         <h3 className={styles.title}>{project.title}</h3>
+        <p className={styles.subtitle}>{project.subtitle}</p>
         <p className={styles.description}>{project.description}</p>
         <a
           href={project.projectUrl}
