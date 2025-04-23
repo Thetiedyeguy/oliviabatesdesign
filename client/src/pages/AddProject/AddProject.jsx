@@ -8,12 +8,20 @@ const AddProject = () => {
     title: '',
     subtitle: '',
     description: '',
-    projectPath: '',
     date: '',
-    squareImage: '',            // Now a string
-    rectangularImage: '',       // Now a string
+    squareImage: '',
+    rectangularImage: '',
+    showcaseImg1: '',
+    showcaseImg2: '',
+    showcaseImg3: '',
+    showcaseImg4: '',
+    showcaseImg5: '',
+    designDescription: '',
+    materialDescription: '',
+    fabricationDescription: '',
     featured: false
   });
+  
   
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -64,12 +72,20 @@ const AddProject = () => {
       title: formData.title,
       subtitle: formData.subtitle,
       description: formData.description,
-      projectPath: formData.projectPath,
       date: formData.date,
       featured: formData.featured,
       squareImage: formData.squareImage,
       rectangularImage: formData.rectangularImage,
+      showcaseImg1: formData.showcaseImg1,
+      showcaseImg2: formData.showcaseImg2,
+      showcaseImg3: formData.showcaseImg3,
+      showcaseImg4: formData.showcaseImg4,
+      showcaseImg5: formData.showcaseImg5,
+      designDescription: formData.designDescription,
+      materialDescription: formData.materialDescription,
+      fabricationDescription: formData.fabricationDescription
     };
+    
   
     try {
       if (editingId) {
@@ -91,10 +107,17 @@ const AddProject = () => {
         title: '',
         subtitle: '',
         description: '',
-        projectPath: '',
         date: '',
         squareImage: '',
         rectangularImage: '',
+        showcaseImg1: '',
+        showcaseImg2: '',
+        showcaseImg3: '',
+        showcaseImg4: '',
+        showcaseImg5: '',
+        designDescription: '',
+        materialDescription: '',
+        fabricationDescription: '',
         featured: false
       });
     } catch (err) {
@@ -192,17 +215,50 @@ const AddProject = () => {
           />
         </div>
 
+        {[1,2,3,4,5].map(n => (
+          <div className={styles.formGroup} key={n}>
+            <label>Showcase Image #{n} Filename</label>
+            <input
+              type="text"
+              name={`showcaseImg${n}`}
+              value={formData[`showcaseImg${n}`]}
+              onChange={handleChange}
+              placeholder={`e.g. showcase-${n}.jpg`}
+            />
+          </div>
+        ))}
 
         <div className={styles.formGroup}>
-          <label>Project Path (e.g., /projects/1)</label>
-          <input
-            type="text"
-            name="projectPath"
-            value={formData.projectPath}
+          <label>Design Description</label>
+          <textarea
+            name="designDescription"
+            value={formData.designDescription}
             onChange={handleChange}
-            required
+            rows="3"
           />
         </div>
+
+        <div className={styles.formGroup}>
+          <label>Material Description</label>
+          <textarea
+            name="materialDescription"
+            value={formData.materialDescription}
+            onChange={handleChange}
+            rows="3"
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Fabrication Description</label>
+          <textarea
+            name="fabricationDescription"
+            value={formData.fabricationDescription}
+            onChange={handleChange}
+            rows="3"
+          />
+        </div>
+
+
 
         <div className={styles.formGroup}>
           <label>Date (YYYY-MM-DD)</label>
@@ -247,10 +303,17 @@ const AddProject = () => {
                 title: '',
                 subtitle: '',
                 description: '',
-                projectPath: '',
                 date: '',
                 squareImage: '',
                 rectangularImage: '',
+                showcaseImg1: '',
+                showcaseImg2: '',
+                showcaseImg3: '',
+                showcaseImg4: '',
+                showcaseImg5: '',
+                designDescription: '',
+                materialDescription: '',
+                fabricationDescription: '',
                 featured: false
               });
             }}
@@ -276,18 +339,22 @@ const AddProject = () => {
                 // enter edit mode
                 setEditingId(project.id);
                 setFormData({
-                title: project.title,
-                subtitle: project.subtitle || '',
-                description: project.description || '',
-                projectPath: project.projectUrl.replace(
-                  /^https?:\/\/[^/]+/,  // strip off protocol and host
-                  ''
-                ),
-                date: project.date?.slice(0,10) || '',
-                squareImage: project.squareImageFilename || '',
-                rectangularImage: project.rectangularImageFilename || '',
-                featured: project.featured
-              });
+                  title: project.title,
+                  subtitle: project.subtitle || '',
+                  description: project.description || '',
+                  date: project.date?.slice(0,10) || '',
+                  squareImage: project.squareImageFilename || '',
+                  rectangularImage: project.rectangularImageFilename || '',
+                  showcaseImg1: project.showcaseImg1Filename || '',
+                  showcaseImg2: project.showcaseImg2Filename || '',
+                  showcaseImg3: project.showcaseImg3Filename || '',
+                  showcaseImg4: project.showcaseImg4Filename || '',
+                  showcaseImg5: project.showcaseImg5Filename || '',
+                  designDescription: project.designDescription || '',
+                  materialDescription: project.materialDescription || '',
+                  fabricationDescription: project.fabricationDescription || '',
+                  featured: project.featured
+                });                
             }}
             >
               Edit

@@ -73,7 +73,7 @@ const ProjectCard = ({ project, type = 'full' }) => {
         <p className={styles.subtitle}>{project.subtitle}</p>
         <p className={styles.description}>{project.description}</p>
         <a
-          href={project.projectUrl}
+          href={project.title}
           className={styles.fullButton}
           target="_blank"
           rel="noopener noreferrer"

@@ -4,6 +4,7 @@ import Home from '../pages/Home/Home';
 import Projects from '../pages/Projects/Projects';
 import Contact from '../pages/Contact/Contact';
 import AddProject from '../pages/AddProject/AddProject';
+import Showcase from '../components/Showcase/Showcase';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: 'admin',
         element: <AddProject />,
+      },
+      {
+        path: ':title',
+        element: <Showcase />,
       },
     ],
   },
