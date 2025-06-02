@@ -17,9 +17,25 @@
 }
 
 .footer {
-  background-color: #f8f9fa;
-  padding: 2rem;
-  text-align: center;
+  background-color: #6E816B;
+  padding: 0rem;
+  padding-left: 12rem;
+  text-align: left;
   color: #666;
   margin-top: auto;
+}
+
+.footerTitle {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-family: 'Italiana';
+  color: #FFFFFF;
+  font-size: 3rem;
+  padding: 0rem;
+}
+
+.footerText{
+  padding-left: 1rem;
+  color: #FFFFFF;
+  font-family: 'Serif';
 }

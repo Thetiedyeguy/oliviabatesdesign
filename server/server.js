@@ -180,7 +180,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
   });
 }
-
+ 
 // Add new project (admin only)
 // Configure file storage
 const storage = multer.diskStorage({

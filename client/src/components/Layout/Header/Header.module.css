@@ -1,0 +1,46 @@
+.header {
+    width: 100%;
+  }
+
+  .nav {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+  
+  .navLink {
+    color: #6E816B;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin: auto;
+    white-space: nowrap;
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .activeLink {
+    color: #4E614B;
+    transition: color 0.3s ease;
+    margin: auto;
+    white-space: nowrap;
+    padding: 0.5rem;
+    text-decoration: underline;
+    font-size: 1.5rem;
+  }
+  
+  .activeLink:hover {
+    color: #6E816B;
+  }
+  
+  .navLink:hover {
+    color: #8EA18B;
+  }

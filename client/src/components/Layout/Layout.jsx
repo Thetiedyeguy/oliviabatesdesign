@@ -8,6 +8,20 @@ const Layout = () => {
       <main className={styles.main}>
         <Outlet />
       </main>
+      <footer className={styles.footer}>
+        <p className={styles.footerTitle}>
+          Get in touch
+        </p>
+        <p className={styles.footerText}>
+          661.234.0285
+        </p>
+        <p className={styles.footerText}>
+          obates1206@gmail.com
+        </p>
+        <p className={styles.footerText}>
+          https://www.linkedin.com/in/olivia-bates-032583327
+        </p>
+      </footer>
     </div>
   );
 };

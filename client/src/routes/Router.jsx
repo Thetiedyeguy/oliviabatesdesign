@@ -4,7 +4,9 @@ import Home from '../pages/Home/Home';
 import Projects from '../pages/Projects/Projects';
 import Contact from '../pages/Contact/Contact';
 import AddProject from '../pages/AddProject/AddProject';
-import Showcase from '../components/Showcase/Showcase';
+import BioBubbles from '../pages/ShowcasePages/BioBubbles';
+import StudyLamp from '../pages/ShowcasePages/StudyLamp';
+import IcyLattice from '../pages/ShowcasePages/IcyLattice';
 
 const router = createBrowserRouter([
   {
@@ -28,8 +30,16 @@ const router = createBrowserRouter([
         element: <AddProject />,
       },
       {
-        path: ':title',
-        element: <Showcase />,
+        path: 'BioBubbles',
+        element: <BioBubbles />,
+      },
+      {
+        path: 'Study Lamp',
+        element: <StudyLamp />,
+      },
+      {
+        path: 'Icy Lattice',
+        element: <IcyLattice />,
       },
     ],
   },
