@@ -14,7 +14,7 @@ const Header = () => {
                         isActive ? styles.activeLink : styles.navLink
                         }
                     >
-                        HOME
+                        portfolio
                     </NavLink>
                     <NavLink 
                         to="/about"
@@ -22,7 +22,7 @@ const Header = () => {
                         isActive ? styles.activeLink : styles.navLink
                         }
                     >
-                        ABOUT
+                        about
                     </NavLink>
                     <NavLink 
                         to="/projects"
@@ -30,7 +30,7 @@ const Header = () => {
                         isActive ? styles.activeLink : styles.navLink
                         }
                     >
-                        TIMELINE
+                        skills
                     </NavLink>
                     </div>
                 </nav>

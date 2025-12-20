@@ -18,7 +18,8 @@
   }
   
   .navLink {
-    color: #6E816B;
+    color: #FFFFFF;
+    font-family: 'Body';
     text-decoration: none;
     transition: color 0.3s ease;
     margin: auto;
@@ -28,19 +29,20 @@
   }
   
   .activeLink {
-    color: #4E614B;
+    color: #FFFFFF;
     transition: color 0.3s ease;
     margin: auto;
     white-space: nowrap;
-    padding: 0.5rem;
-    text-decoration: underline;
+    padding: 1rem;
+    text-decoration: none;
     font-size: 1.5rem;
+    font-family: 'Body-Bold';
   }
   
   .activeLink:hover {
-    color: #6E816B;
+    color: rgba(255, 255, 255, 0.8);
   }
   
   .navLink:hover {
-    color: #8EA18B;
+    color: rgba(255, 255, 255, 0.8);
   }

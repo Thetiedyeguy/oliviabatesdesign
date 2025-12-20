@@ -1,105 +1,115 @@
 .page {
   /* Existing styles */
   width: 100%;
+  background-color: white;
 }
 .hero {
-    text-align: left;
-    padding-left:15%;
-  }
+  position: relative;
+  text-align: left;
+  background-image: url("./assets/newAlginateBackground.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+
+.greetingLine{
+  padding-left:15%;
+  display: flex;
+  padding-top: 3rem;
+}
 
 .greeting {
-  font-family: 'Italiana', sans-serif;
-  font-size: 5rem;
+  font-family: 'Handwriting', sans-serif;
+  font-size: 7rem;
   max-width: 40rem;
+  margin: 0;
   margin-left: 10rem;
-  color: #6E816B;
+  color: #51604E;
+}
+
+.name {
+  font-family: 'Titles', sans-serif;
+  font-size: 7rem;
+  margin: 0;
+  margin-top: 1rem;
+  margin-left: 3rem;
+  color: #51604E;
 }
   
 .desc {
+  padding-left:15%;
   padding-top: 7rem;
   padding-bottom: 5rem;
-  font-family: 'Serif-Light', sans-serif;
-  font-size: 3rem;
+  font-family: 'Handwriting', sans-serif;
+  font-size: 5rem;
   max-width: 30rem;
-  color: #6E816B;
+  color: #51604E;
   margin: -0.5rem;
   margin-left: 10rem;
 }
 
-  .title {
-    color: #26471a;
-  }
-  
-  .subtitle {
-    font-size: 1.25rem;
-    color: #6E816B;
-    max-width: 50rem;
-  }
+.wave {
+  display: block;
+  line-height: 0;
+  margin-top: 12rem;
+  margin-bottom: -2rem;
+  width: 100%;
+  height: 10rem;
+}
 
-  .featured {
-    text-align: center;
-    background-color: #6E816B;
-  }
-  .featuredTitle {
-    color: #DEDEDE;
-    font-size: 5rem;
-    font-family: 'Italiana';
-    margin: 0;
-    padding: 3rem;
-  }
+.wave2 {
+  display: block;
+  line-height: 0;
+  margin-top: -3rem;
+  width: 100%;
+  height: 12rem;
+}
 
-  .projectsGrid {
-    display: grid;
-    width: 100%;
-    gap: 2rem;
-    grid-template-columns: 1;
-    background-color: #DEDEDE;
-  }
+.title {
+  color: #26471a;
+}
+  
+.subtitle {
+  font-size: 1.25rem;
+  color: #51604E;
+  max-width: 50rem;
+}
 
-  .header {
-    width: 100%;
-    /* No explicit background color, so it remains transparent and shows the container’s background */
-  }
+.featured {
+  background-color: #51604E;
+}
+.featuredTitle {
+  color: #FFFFFF;
+  font-size: 9rem;
+  font-family: 'Titles';
+  margin: 0;
+  padding: 2rem;
+  padding-left: 10rem;
+}
+
+.projectSubtitle{
+  color: #FFFFFF;
+  font-size: 4rem;
+  font-family: 'Body-Bold';
+  margin: 0;
+  padding-left: 10rem;
+}
+.projectDescription {
+  color: #FFFFFF;
+  font-size: 3rem;
+  font-family: 'Body';
+  margin: 0;
+  padding-left: 10rem;
+}
+
+.projectsGrid {
+  display: grid;
+  width: 100%;
+  gap: 2rem;
+  grid-template-columns: 1;
+  background-color: #51604E;
+}
+
   
-  .nav {
-    display: flex;
-    align-items: flex-end;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
   
-  .navLinks {
-    display: flex;
-    gap: 2rem;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    margin-left: auto;
-  }
   
-  .navLink {
-    color: #6E816B;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    margin: auto;
-    white-space: nowrap;
-    padding: 1rem;
-    font-size: 1.5rem;
-  }
-  
-  .activeLink {
-    color: #4E614B;
-    transition: color 0.3s ease;
-    margin: auto;
-    white-space: nowrap;
-    padding: 0.5rem;
-    text-decoration: underline;
-    font-size: 1.5rem;
-  }
-  
-  .activeLink:hover {
-    color: #6E816B;
-  }
-  
-  .navLink:hover {
-    color: #8EA18B;
-  }
