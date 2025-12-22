@@ -7,6 +7,7 @@ import AddProject from '../pages/AddProject/AddProject';
 import BioBubbles from '../pages/ShowcasePages/BioBubbles';
 import StudyLamp from '../pages/ShowcasePages/StudyLamp';
 import IcyLattice from '../pages/ShowcasePages/IcyLattice';
+import About from '../pages/About/About';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+      {
+        path: 'about',
+        element: <About/>
       },
       {
         path: 'admin',

@@ -1,20 +1,32 @@
+/* Footer.module.css */
+
 .container {
+  --bg-main: #51604E;
+  --bg-contrast: #FFFFFF;
+  --text-main: #51604E;
+
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* Set the desired background here */
-  background-color: #51604E;
+  background-color: var(--bg-main);
 }
+
+.container.inverted {
+  --bg-main: #FFFFFF;
+  --bg-contrast: #51604E;
+  --text-main: #FFFFFF;
+}
+
+
 
 .main {
   flex: 1;
   margin: 0;
   width: 100%;
-  /* No background style here since we want to use the container’s background */
 }
 
 .footer {
-  background-color: #FFFFFF;
+  background-color: var(--bg-contrast);
   padding: 0rem;
   text-align: left;
   color: #666;
@@ -23,29 +35,26 @@
 }
 
 .wave {
-  background-color: #FFFFFF;
+  color: var(--bg-contrast);
   display: block;
   line-height: 0;
   width: 100%;
   height: 12rem;
-  margin-top: -1rem;
-  /* transform: rotate(180); */
+  margin-top: -3rem;
 }
 
 .footerTitle {
   margin-top: -1rem;
   margin-bottom: 0rem;
   font-family: 'Handwriting';
-  color: #51604E;
+  color: var(--text-main);
   font-size: 5rem;
-  padding: 0rem;
   padding-left: 12rem;
-  margin-left: 0.5rem;
 }
 
-.footerText{
+.footerText {
   padding-left: 13rem;
   font-size: 1.5rem;
-  color: #51604E;
+  color: var(--text-main);
   font-family: 'Body';
 }

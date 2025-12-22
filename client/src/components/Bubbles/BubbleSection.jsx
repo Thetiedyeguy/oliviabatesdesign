@@ -79,13 +79,13 @@ const BubbleSection = ({ bubbleData }) => {
       const rect = container.getBoundingClientRect();
 
       bubblesRef.current.forEach(bubble => {
-        applyOriginAttraction(bubble); // toward original spawn position
-        applyParallax(bubble, mouseRef.current.x, mouseRef.current.y, rect.width, rect.height);
+        // applyOriginAttraction(bubble); // toward original spawn position
+        // applyParallax(bubble, mouseRef.current.x, mouseRef.current.y, rect.width, rect.height);
         bubble.x += bubble.vx;
         bubble.y += bubble.vy;
       });
 
-      resolveCollisions(bubblesRef.current, 6);
+      // resolveCollisions(bubblesRef.current, 6);
 
       bubblesRef.current.forEach(bubble => {
         applyDamping(bubble);
