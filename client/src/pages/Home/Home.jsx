@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Home.module.css';
-import { NavLink} from 'react-router-dom';
 import ProjectFinder from '../../apis/ProjectFinder';
-import ProjectCard from '../Projects/ProjectCard';
+import AlternatingText from '../../components/AlternatingText';
+import BubbleSection from '../../components/Bubbles/BubbleSection';
 
 const Home = () => {
 
 
-  const [projects, setProjects] = useState([]);
+  const [bubbleData, setBubbleData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -16,7 +16,21 @@ const Home = () => {
       try {
         const response = await ProjectFinder.get("/");
         console.log(response)
-        setProjects(response.data.data)
+        const bubbles = response.data.data.map(project => ({
+          id: Number(project.id),
+          type: 'project',
+          title: project.title,
+          subtitle: project.subtitle,
+          link: `/projects/${project.title}`,
+          image: project.squareImageUrl,
+          opacity: Number(project.bg_opacity),
+          radius: Number(project.radius) || 20,
+          x: Number(project.x_position) || 0.7,
+          y: Number(project.y_position) || 0.7
+        }));
+        
+        setBubbleData(bubbles);
+        console.log(bubbleData);
       } catch (err) {
         setError('Failed to load projects. Please try again later.');
         console.error('Projects fetch error:', err);
@@ -27,7 +41,7 @@ const Home = () => {
 
     fetchProjects();
   }, []);
-
+  
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
@@ -35,32 +49,32 @@ const Home = () => {
       </div>
     );
   }
-
+  
   if (error) {
     return <div className={styles.errorMessage}>{error}</div>;
   }
-
+  
   // return (
-  //   <div className={styles.projectsContainer}>
-  //     <h1 className={styles.pageTitle}>Design Projects</h1>
-  //     <div className={styles.projectsGrid}>
-  //       {projects.map((project) => (
-  //         <ProjectCard key={project.id} project={project} />
-  //       ))}
-  //     </div>
-  //   </div>
-  // );
-
-  return (
-    <div className ={styles.page}>
+    //   <div className={styles.projectsContainer}>
+    //     <h1 className={styles.pageTitle}>Design Projects</h1>
+    //     <div className={styles.projectsGrid}>
+    //       {projects.map((project) => (
+      //         <ProjectCard key={project.id} project={project} />
+      //       ))}
+      //     </div>
+      //   </div>
+      // );
+      return (
+        <div className ={styles.page}>
       <section className={styles.hero}>
         <div className={styles.greetingLine}>
           <p className={styles.greeting}>
             I am
           </p>
-          <p className={styles.name}>
-            Olivia Bates
-          </p>
+          <AlternatingText
+            text="Olivia Bates"
+            className={styles.name}
+          />
         </div>
         <p className={styles.desc}>
           Failure is the first step to success
@@ -85,11 +99,9 @@ const Home = () => {
       </section>
       <section className={styles.projectsGrid}>
         <div className={styles.projectsGrid}>
-          {projects
-            .filter(project => project.featured)
-            .map(project => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
+          <BubbleSection
+            bubbleData={bubbleData}
+          />
         </div>
       </section>
       <svg xmlns="http://www.w3.org/2000/svg" width="1920.732" height="155.059" viewBox="0 0 1920.732 155.059" className={styles.wave2}>

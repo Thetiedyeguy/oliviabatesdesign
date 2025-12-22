@@ -34,31 +34,20 @@ app.get("/api/health", (req, res) => {
 app.get("/api/projects", async (req, res) => {
   try {
     const { rows } = await pool.query(`
-      SELECT
-        id, title, subtitle, description,
-        square_image_filename      AS "squareImageFilename",
-        rectangular_image_filename AS "rectangularImageFilename",
-        showcase_img1_filename     AS "showcaseImg1",
-        showcase_img2_filename     AS "showcaseImg2",
-        showcase_img3_filename     AS "showcaseImg3",
-        showcase_img4_filename     AS "showcaseImg4",
-        showcase_img5_filename     AS "showcaseImg5",
-        design_description         AS "designDescription",
-        material_description       AS "materialDescription",
-        fabrication_description    AS "fabricationDescription",
-        date, featured
-        FROM projects
-        ORDER BY date ASC;
+      SELECT id, title, subtitle,
+             square_image_filename AS "squareImageFilename",
+             link,
+             featured,
+             radius,
+             bg_opacity,
+             x_position,
+             y_position
+      FROM projects
+      ORDER BY id ASC;
     `);
-    
-    // Transform filenames to full URLs.
+
     rows.forEach(project => {
-      if (project.squareImageFilename) {
-        project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
-      }
-      if (project.rectangularImageFilename) {
-        project.rectangularImageUrl = `${process.env.BASE_URL}/${project.rectangularImageFilename}`;
-      }
+      if (project.squareImageFilename) project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
     });
 
     res.status(200).json({ status: "success", data: rows });
@@ -69,48 +58,42 @@ app.get("/api/projects", async (req, res) => {
 });
 
 
+
 // Get single project
+// Get single project by ID
 app.get("/api/projects/:id", async (req, res) => {
   try {
     const { rows } = await pool.query(
       `SELECT
-        id, title, subtitle, description,
-        square_image_filename      AS "squareImageFilename",
-        rectangular_image_filename AS "rectangularImageFilename",
-        showcase_img1_filename     AS "showcaseImg1Filename",
-        showcase_img2_filename     AS "showcaseImg2Filename",
-        showcase_img3_filename     AS "showcaseImg3Filename",
-        showcase_img4_filename     AS "showcaseImg4Filename",
-        showcase_img5_filename     AS "showcaseImg5Filename",
-        design_description         AS "designDescription",
-        material_description       AS "materialDescription",
-        fabrication_description    AS "fabricationDescription",
-        date, featured
-        FROM projects 
-      WHERE id = $1`,
+         id,
+         title,
+         subtitle,
+         square_image_filename AS "squareImageFilename",
+         link,
+         featured,
+         radius,
+         bg_opacity,
+         x_position,
+         y_position
+       FROM projects
+       WHERE id = $1`,
       [req.params.id]
     );
-    
+
     if (rows.length === 0) {
       return res.status(404).json({ status: "error", message: "Project not found" });
     }
-    
-    // Transform filenames to full URLs.
-    rows.forEach(project => {
-      if (project.squareImageFilename) {
-        project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
-      }
-      if (project.rectangularImageFilename) {
-        project.rectangularImageUrl = `${process.env.BASE_URL}/${project.rectangularImageFilename}`;
-      }
-    });
-    
-    res.status(200).json({ status: "success", data: rows[0] });
+
+    const project = rows[0];
+    if (project.squareImageFilename) project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
+
+    res.status(200).json({ status: "success", data: project });
   } catch (err) {
     console.error(err);
     res.status(500).json({ status: "error", message: "Failed to fetch project" });
   }
 });
+
 
 
 // Get all skills
@@ -218,180 +201,76 @@ app.use('/uploads', express.static(path.join(__dirname, '/var/www/uploads')));
 
 // Update the projects POST route
 app.post("/api/projects", async (req, res) => {
-  const {
-    title, subtitle, description,
-    squareImage, rectangularImage,
-    showcaseImg1, showcaseImg2, showcaseImg3,
-    showcaseImg4, showcaseImg5,
-    designDescription, materialDescription, fabricationDescription,
-    date, featured
-  } = req.body;
+  const { title, subtitle, squareImage, link, featured, radius, bg_opacity, x_position, y_position } = req.body;
 
-  if (!title || !description) {
-    return res.status(400).json({
-      status: "error",
-      message: "Title and description are required"
-    });
+  if (!title) {
+    return res.status(400).json({ status: "error", message: "Title is required" });
   }
 
   try {
-
     const { rows } = await pool.query(
-      `INSERT INTO projects
-         (title, subtitle, description,
-          square_image_filename, rectangular_image_filename,
-          showcase_img1_filename, showcase_img2_filename,
-          showcase_img3_filename, showcase_img4_filename,
-          showcase_img5_filename,
-          design_description, material_description, fabrication_description,
-          date, featured)
-       VALUES
-         ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
-       RETURNING
-         id, title, subtitle, description,
-         square_image_filename      AS "squareImageFilename",
-         rectangular_image_filename AS "rectangularImageFilename",
-         showcase_img1_filename     AS "showcaseImg1Filename",
-         showcase_img2_filename     AS "showcaseImg2Filename",
-         showcase_img3_filename     AS "showcaseImg3Filename",
-         showcase_img4_filename     AS "showcaseImg4Filename",
-         showcase_img5_filename     AS "showcaseImg5Filename",
-         design_description         AS "designDescription",
-         material_description       AS "materialDescription",
-         fabrication_description    AS "fabricationDescription",
-         date, featured`,
-      [
-        title, subtitle, description,
-        squareImage, rectangularImage,
-        showcaseImg1, showcaseImg2, showcaseImg3,
-        showcaseImg4, showcaseImg5,
-        designDescription, materialDescription, fabricationDescription,
-        date || new Date().toISOString(),
-        featured === true || featured === 'true'
-      ]
+      `INSERT INTO projects (title, subtitle, square_image_filename, link, featured, radius, bg_opacity, x_position, y_position)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       RETURNING *`,
+      [title, subtitle, squareImage, link, featured, radius, bg_opacity, x_position, y_position]
     );
 
-    res.status(201).json({
-      status: "success",
-      data: rows[0]
-    });
+    // Transform filenames to URLs
+    const project = rows[0];
+    if (project.squareImageFilename) project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
+
+    res.status(201).json({ status: "success", data: project });
   } catch (err) {
     console.error(err);
-    res.status(500).json({
-      status: "error",
-      message: "Failed to create project"
-    });
+    res.status(500).json({ status: "error", message: "Failed to create project" });
   }
 });
+
 
 
 
 
 app.patch("/api/projects/:id", async (req, res) => {
-  const {
-    title,
-    subtitle,
-    description,
-    squareImage,
-    rectangularImage,
-    showcaseImg1,
-    showcaseImg2,
-    showcaseImg3,
-    showcaseImg4,
-    showcaseImg5,
-    designDescription,
-    materialDescription,
-    fabricationDescription,
-    date,
-    featured
-  } = req.body;
-
-  // Basic validation
-  if (!title || !description) {
-    return res.status(400).json({
-      status: "error",
-      message: "Title and description are required"
-    });
+  const { title, subtitle, squareImage, link, featured, radius, bg_opacity, x_position, y_position } = req.body;
+  if (!title) {
+    return res.status(400).json({ status: "error", message: "Title is required" });
   }
 
   try {
-    const {
-      rows,
-      rowCount
-    } = await pool.query(
+    const { rows, rowCount } = await pool.query(
       `UPDATE projects
-         SET title                     = $1,
-             subtitle                  = $2,
-             description               = $3,
-             square_image_filename     = $4,
-             rectangular_image_filename= $5,
-             showcase_img1_filename    = $6,
-             showcase_img2_filename    = $7,
-             showcase_img3_filename    = $8,
-             showcase_img4_filename    = $9,
-             showcase_img5_filename    = $10,
-             design_description        = $11,
-             material_description      = $12,
-             fabrication_description   = $13,
-             date                      = $14,
-             featured                  = $15
-       WHERE id = $16
-       RETURNING
-         id,
-         title,
-         subtitle,
-         description,
-         square_image_filename      AS "squareImageFilename",
-         rectangular_image_filename AS "rectangularImageFilename",
-         showcase_img1_filename     AS "showcaseImg1Filename",
-         showcase_img2_filename     AS "showcaseImg2Filename",
-         showcase_img3_filename     AS "showcaseImg3Filename",
-         showcase_img4_filename     AS "showcaseImg4Filename",
-         showcase_img5_filename     AS "showcaseImg5Filename",
-         design_description         AS "designDescription",
-         material_description       AS "materialDescription",
-         fabrication_description    AS "fabricationDescription",
-         date,
-         featured;`,
-      [
-        title,
-        subtitle || null,
-        description,
-        squareImage || null,
-        rectangularImage || null,
-        showcaseImg1 || null,
-        showcaseImg2 || null,
-        showcaseImg3 || null,
-        showcaseImg4 || null,
-        showcaseImg5 || null,
-        designDescription || null,
-        materialDescription || null,
-        fabricationDescription || null,
-        date || new Date().toISOString(),
-        featured === true || featured === 'true',
-        req.params.id
-      ]
+       SET title = $1,
+           subtitle = $2,
+           square_image_filename = $3,
+           link = $4,
+           featured = $5,
+           radius = $6,
+           bg_opacity = $7,
+           x_position = $8,
+           y_position = $9
+       WHERE id = $10
+       RETURNING id, title, subtitle,
+                 square_image_filename AS "squareImageFilename",
+                 rectangular_image_filename AS "rectangularImageFilename",
+                 link`,
+      [title, subtitle, squareImage, link, featured, radius, bg_opacity, x_position, y_position, req.params.id]
     );
 
     if (rowCount === 0) {
-      return res.status(404).json({
-        status: "error",
-        message: "Project not found"
-      });
+      return res.status(404).json({ status: "error", message: "Project not found" });
     }
 
-    res.status(200).json({
-      status: "success",
-      data: rows[0]
-    });
+    const project = rows[0];
+    if (project.squareImageFilename) project.squareImageUrl = `${process.env.BASE_URL}/${project.squareImageFilename}`;
+    if (project.rectangularImageFilename) project.rectangularImageUrl = `${process.env.BASE_URL}/${project.rectangularImageFilename}`;
+
+    res.status(200).json({ status: "success", data: project });
   } catch (err) {
-    console.error("Error updating project:", err);
-    res.status(500).json({
-      status: "error",
-      message: "Failed to update project"
-    });
+    console.error(err);
+    res.status(500).json({ status: "error", message: "Failed to update project" });
   }
 });
+
 
 
 

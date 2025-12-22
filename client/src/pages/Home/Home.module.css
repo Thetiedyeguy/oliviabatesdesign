@@ -15,11 +15,11 @@
 .greetingLine{
   padding-left:15%;
   display: flex;
-  padding-top: 3rem;
+  padding-top: 10rem;
 }
 
 .greeting {
-  font-family: 'Handwriting', sans-serif;
+  font-family: 'Handwriting', sans-serif;;
   font-size: 7rem;
   max-width: 40rem;
   margin: 0;
@@ -31,10 +31,10 @@
   font-family: 'Titles', sans-serif;
   font-size: 7rem;
   margin: 0;
-  margin-top: 1rem;
   margin-left: 3rem;
   color: #51604E;
 }
+
   
 .desc {
   padding-left:15%;
@@ -51,7 +51,7 @@
 .wave {
   display: block;
   line-height: 0;
-  margin-top: 12rem;
+  margin-top: 5rem;
   margin-bottom: -2rem;
   width: 100%;
   height: 10rem;
@@ -60,7 +60,7 @@
 .wave2 {
   display: block;
   line-height: 0;
-  margin-top: -3rem;
+  margin-top: -4rem;
   width: 100%;
   height: 12rem;
 }

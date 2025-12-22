@@ -1,0 +1,75 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 160vh;
+  overflow: hidden;
+  background-color: #51604E;
+}
+.bubbleWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.bubble {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.25s ease, background 0.3s;
+  background-color: white;
+}
+
+.bubbleWrapper:hover .bubble {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.bubbleImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: opacity 0.25s ease;
+}
+
+.bubbleText {
+  position: absolute;
+  color: #51604e;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none; /* so hover still triggers the bubble */
+}
+
+.title{
+    font-family: 'Body-Bold', sans-serif;
+    font-size: 2rem; /* adjust for bubble size */
+}
+
+.subtitle{
+    font-family: 'Body', sans-serif;
+    font-size: 2rem; /* adjust for bubble size */
+}
+
+.bubbleWrapper:hover .bubbleImage {
+  opacity: 0; /* dim image to highlight text */
+}
+
+.bubbleWrapper:hover .bubbleText {
+  opacity: 1;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble {
+    transition: none;
+  }
+}

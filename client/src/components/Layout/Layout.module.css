@@ -19,7 +19,8 @@
   padding-left: 12rem;
   text-align: left;
   color: #666;
-  margin-top: auto;
+  margin-top: -2rem;
+  padding-bottom: 2rem;
 }
 
 .footerTitle {

@@ -7,22 +7,15 @@ const AddProject = () => {
   const [formData, setFormData] = useState({
     title: '',
     subtitle: '',
-    description: '',
-    date: '',
     squareImage: '',
-    rectangularImage: '',
-    showcaseImg1: '',
-    showcaseImg2: '',
-    showcaseImg3: '',
-    showcaseImg4: '',
-    showcaseImg5: '',
-    designDescription: '',
-    materialDescription: '',
-    fabricationDescription: '',
-    featured: false
+    link: '',
+    featured: false,
+    radius: 60,
+    bg_opacity: 0.5,
+    x_position: 0.5,
+    y_position: 0.5
   });
-  
-  
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -43,18 +36,12 @@ const AddProject = () => {
     fetchProjects();
   }, []);
 
-  
   const handleDeleteProject = async () => {
     try {
       await ProjectFinder.delete(`/${projectToDelete.id}`, {
-        headers: {
-          'X-Admin-Key': 'your_secret_key_here'
-        }
+        headers: { 'X-Admin-Key': 'your_secret_key_here' }
       });
-      
-      setProjects(prev => 
-        prev.filter(project => project.id !== projectToDelete.id)
-      );
+      setProjects(prev => prev.filter(p => p.id !== projectToDelete.id));
       setShowDeleteModal(false);
     } catch (err) {
       console.error('Delete failed:', err);
@@ -67,97 +54,40 @@ const AddProject = () => {
     setLoading(true);
     setError('');
     setSuccess(false);
-  
-    const payload = {
-      title: formData.title,
-      subtitle: formData.subtitle,
-      description: formData.description,
-      date: formData.date,
-      featured: formData.featured,
-      squareImage: formData.squareImage,
-      rectangularImage: formData.rectangularImage,
-      showcaseImg1: formData.showcaseImg1,
-      showcaseImg2: formData.showcaseImg2,
-      showcaseImg3: formData.showcaseImg3,
-      showcaseImg4: formData.showcaseImg4,
-      showcaseImg5: formData.showcaseImg5,
-      designDescription: formData.designDescription,
-      materialDescription: formData.materialDescription,
-      fabricationDescription: formData.fabricationDescription
-    };
-    
-  
+
+    const payload = { ...formData };
+
     try {
       if (editingId) {
-        // EDIT existing project
         const res = await ProjectFinder.patch(`/${editingId}`, payload);
-        // update local list
         setProjects(prev =>
           prev.map(p => p.id === editingId ? { ...p, ...res.data.data } : p)
         );
         setEditingId(null);
       } else {
-        // CREATE new project
         const res = await ProjectFinder.post('', payload);
         setProjects(prev => [res.data.data, ...prev]);
       }
       setSuccess(true);
-      // reset form
-      setFormData({
-        title: '',
-        subtitle: '',
-        description: '',
-        date: '',
-        squareImage: '',
-        rectangularImage: '',
-        showcaseImg1: '',
-        showcaseImg2: '',
-        showcaseImg3: '',
-        showcaseImg4: '',
-        showcaseImg5: '',
-        designDescription: '',
-        materialDescription: '',
-        fabricationDescription: '',
-        featured: false
-      });
+      setFormData({ title: '', subtitle: '', squareImage: '', rectangularImage: '', link: '' });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to save project');
     } finally {
       setLoading(false);
     }
   };
-  
-  
-  
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const updateFeaturedStatus = async (projectId, newStatus) => {
-    try {
-      await ProjectFinder.patch(`/${projectId}`, { featured: newStatus });
-      // Update local state after success
-    } catch (err) {
-      console.error("Failed to update featured status:", err);
-    }
-  };
-  
-  
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
         {editingId ? 'Edit Project' : 'Add New Project'}
       </h1>
-      
-      {success && (
-        <div className={styles.success}>Project added successfully!</div>
-      )}
-      
+
+      {success && <div className={styles.success}>Project saved successfully!</div>}
       {error && <div className={styles.error}>{error}</div>}
 
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -183,90 +113,75 @@ const AddProject = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label>Description *</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            rows="4"
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Square Image Filename</label>
+          <label>Image URL</label>
           <input
             type="text"
             name="squareImage"
             value={formData.squareImage}
             onChange={handleChange}
-            placeholder="e.g., my-image.jpg"
+            placeholder="e.g., http://example.com/image-square.jpg"
           />
         </div>
 
         <div className={styles.formGroup}>
-          <label>Rectangular Image Filename</label>
+          <label>Project Link</label>
           <input
             type="text"
-            name="rectangularImage"
-            value={formData.rectangularImage}
+            name="link"
+            value={formData.link}
             onChange={handleChange}
-            placeholder="e.g., hero-image.jpg"
-          />
-        </div>
-
-        {[1,2,3,4,5].map(n => (
-          <div className={styles.formGroup} key={n}>
-            <label>Showcase Image #{n} Filename</label>
-            <input
-              type="text"
-              name={`showcaseImg${n}`}
-              value={formData[`showcaseImg${n}`]}
-              onChange={handleChange}
-              placeholder={`e.g. showcase-${n}.jpg`}
-            />
-          </div>
-        ))}
-
-        <div className={styles.formGroup}>
-          <label>Design Description</label>
-          <textarea
-            name="designDescription"
-            value={formData.designDescription}
-            onChange={handleChange}
-            rows="3"
+            placeholder="e.g., /projects/alginate"
           />
         </div>
 
         <div className={styles.formGroup}>
-          <label>Material Description</label>
-          <textarea
-            name="materialDescription"
-            value={formData.materialDescription}
-            onChange={handleChange}
-            rows="3"
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Fabrication Description</label>
-          <textarea
-            name="fabricationDescription"
-            value={formData.fabricationDescription}
-            onChange={handleChange}
-            rows="3"
-          />
-        </div>
-
-
-
-        <div className={styles.formGroup}>
-          <label>Date (YYYY-MM-DD)</label>
+          <label>Bubble Radius (px)</label>
           <input
-            type="date"
-            name="date"
-            value={formData.date}
+            type="number"
+            name="radius"
+            value={formData.radius}
             onChange={handleChange}
+            min="10"
+            max="400"
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Background Opacity (0-1)</label>
+          <input
+            type="number"
+            name="bg_opacity"
+            value={formData.bg_opacity}
+            onChange={handleChange}
+            step="0.01"
+            min="0"
+            max="1"
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>X Position (%)</label>
+          <input
+            type="number"
+            name="x_position"
+            value={formData.x_position}
+            onChange={handleChange}
+            step="0.01"
+            min="0"
+            max="1"
+          />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Y Position (%)</label>
+          <input
+            type="number"
+            name="y_position"
+            value={formData.y_position}
+            onChange={handleChange}
+            step="0.01"
+            min="0"
+            max="1"
           />
         </div>
 
@@ -284,40 +199,20 @@ const AddProject = () => {
           </label>
         </div>
 
-        <button 
-          type="submit" 
-          className={styles.submitButton}
-          disabled={loading}
-        >
-          {loading
-            ? editingId ? 'Saving…' : 'Adding…'
-            : editingId ? 'Save Changes' : 'Add Project'}
+
+
+        <button type="submit" className={styles.submitButton} disabled={loading}>
+          {loading ? 'Saving…' : editingId ? 'Save Changes' : 'Add Project'}
         </button>
 
         {editingId && (
           <button
             type="button"
+            className={styles.cancelButton}
             onClick={() => {
               setEditingId(null);
-              setFormData({
-                title: '',
-                subtitle: '',
-                description: '',
-                date: '',
-                squareImage: '',
-                rectangularImage: '',
-                showcaseImg1: '',
-                showcaseImg2: '',
-                showcaseImg3: '',
-                showcaseImg4: '',
-                showcaseImg5: '',
-                designDescription: '',
-                materialDescription: '',
-                fabricationDescription: '',
-                featured: false
-              });
+              setFormData({ title: '', subtitle: '', squareImage: '', rectangularImage: '', link: '' });
             }}
-            className={styles.cancelButton}
           >
             Cancel
           </button>
@@ -330,49 +225,30 @@ const AddProject = () => {
           <div key={project.id} className={styles.projectItem}>
             <div>
               <span>#{project.id} - {project.title}</span>
-              { project.subtitle && <em> — {project.subtitle}</em> }
+              {project.subtitle && <em> — {project.subtitle}</em>}
             </div>
             <div className={styles.actionButtons}>
-            <button
-              className={styles.editButton}
-              onClick={() => {
-                // enter edit mode
-                setEditingId(project.id);
-                setFormData({
-                  title: project.title,
-                  subtitle: project.subtitle || '',
-                  description: project.description || '',
-                  date: project.date?.slice(0,10) || '',
-                  squareImage: project.squareImageFilename || '',
-                  rectangularImage: project.rectangularImageFilename || '',
-                  showcaseImg1: project.showcaseImg1Filename || '',
-                  showcaseImg2: project.showcaseImg2Filename || '',
-                  showcaseImg3: project.showcaseImg3Filename || '',
-                  showcaseImg4: project.showcaseImg4Filename || '',
-                  showcaseImg5: project.showcaseImg5Filename || '',
-                  designDescription: project.designDescription || '',
-                  materialDescription: project.materialDescription || '',
-                  fabricationDescription: project.fabricationDescription || '',
-                  featured: project.featured
-                });                
-            }}
-            >
-              Edit
-            </button>
               <button
+                className={styles.editButton}
                 onClick={() => {
-                  // Toggle featured: if currently featured, unfeature; if not, feature.
-                  updateFeaturedStatus(project.id, !project.featured);
+                  setEditingId(project.id);
+                  setFormData({
+                    title: project.title,
+                    subtitle: project.subtitle || '',
+                    squareImage: project.squareImageFilename || '',
+                    link: project.link || '',
+                    featured: project.featured || false,  // Add this line
+                    radius: project.radius || 60,
+                    bg_opacity: project.bg_opacity || 0.5,
+                    x_position: project.x_position || 0.5,
+                    y_position: project.y_position || 0.5
+                  });
                 }}
-                className={styles.featuredButton}
               >
-                {project.featured ? "Unfeature" : "Feature"}
+                Edit
               </button>
               <button
-                onClick={() => {
-                  setProjectToDelete(project);
-                  setShowDeleteModal(true);
-                }}
+                onClick={() => { setProjectToDelete(project); setShowDeleteModal(true); }}
                 className={styles.deleteButton}
               >
                 Delete
@@ -381,7 +257,6 @@ const AddProject = () => {
           </div>
         ))}
       </div>
-
 
       {showDeleteModal && (
         <ConfirmationModal
