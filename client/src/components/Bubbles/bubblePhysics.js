@@ -21,30 +21,21 @@ export const spawnBubbles = (count, width, height, bubbleData) => {
       attempts++;
 
       const radius = bubbleData[i].radius;
-        const x = (bubbleData[i].x * BASE_WIDTH) - radius;
-        const y = (bubbleData[i].y * BASE_HEIGHT) - radius;
-        console.log(bubbleData[i].x, bubbleData[i].y, x, y, radius);
-
-      const overlaps = bubbles.some(b => {
-        const dx = b.x - x;
-        const dy = b.y - y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        return dist < b.radius + radius + 10;
-      });
-      if (!overlaps) {
-        bubbles.push({
-            id: i,
-            data: bubbleData[i] || null,
-            x,
-            y,
-            origX: x,
-            origY: y,
-            vx: 0,
-            vy: 0,
-            radius,
-            });
-        placed = true;
-      }
+      const x = (bubbleData[i].x * BASE_WIDTH) - radius;
+      const y = (bubbleData[i].y * BASE_HEIGHT) - radius;
+      console.log(bubbleData[i].x, bubbleData[i].y, x, y, radius);
+      bubbles.push({
+          id: i,
+          data: bubbleData[i] || null,
+          x,
+          y,
+          origX: x,
+          origY: y,
+          vx: 0,
+          vy: 0,
+          radius,
+          });
+      placed = true;
     }
   }
   return bubbles;
