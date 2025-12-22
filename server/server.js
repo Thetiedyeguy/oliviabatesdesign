@@ -210,7 +210,7 @@ app.post("/api/projects", async (req, res) => {
   try {
     const { rows } = await pool.query(
       `INSERT INTO projects (title, subtitle, square_image_filename, link, featured, radius, bg_opacity, x_position, y_position)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        RETURNING *`,
       [title, subtitle, squareImage, link, featured, radius, bg_opacity, x_position, y_position]
     );

@@ -21,7 +21,7 @@ const Home = () => {
           type: 'project',
           title: project.title,
           subtitle: project.subtitle,
-          link: `/projects/${project.title}`,
+          link: `/${project.title}`,
           image: project.squareImageUrl,
           opacity: Number(project.bg_opacity),
           radius: Number(project.radius) || 20,
