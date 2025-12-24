@@ -8,6 +8,7 @@ import BioBubbles from '../pages/ShowcasePages/BioBubbles';
 import StudyLamp from '../pages/ShowcasePages/StudyLamp';
 import IcyLattice from '../pages/ShowcasePages/IcyLattice';
 import About from '../pages/About/About';
+import ISAM from '../pages/ISAM/ISAM';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: 'Icy Lattice',
         element: <IcyLattice />,
+      },
+      {
+        path: 'ISAM',
+        element: <ISAM />,
       },
     ],
   },

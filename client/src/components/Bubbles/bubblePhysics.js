@@ -9,7 +9,6 @@ export const rand = (min, max) =>
 
 export const spawnBubbles = (count, width, height, bubbleData) => {
   console.log(bubbleData)
-    const scaleFactor = window.innerWidth / BASE_WIDTH;
   const bubbles = [];
   const maxAttempts = 500;
 
@@ -60,7 +59,6 @@ export const applyParallax = (
   width,
   height
 ) => {
-    const dist = Math.sqrt(Math.sqrt(((mouseX - bubble.x)**2 + (mouseY - bubble.y)**2)));
     const STRENGTH = 0.0002;
     const mx = ((mouseX - bubble.x) / width - 0.5) * 2;
     const my = ((mouseY - bubble.y) / height - 0.5) * 2;

@@ -12,35 +12,34 @@ const Home = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await ProjectFinder.get("/");
-        console.log(response)
-        const bubbles = response.data.data.map(project => ({
-          id: Number(project.id),
-          type: 'project',
-          title: project.title,
-          subtitle: project.subtitle,
-          link: `/${project.title}`,
-          image: project.squareImageUrl,
-          opacity: Number(project.bg_opacity),
-          radius: Number(project.radius) || 20,
-          x: Number(project.x_position) || 0.7,
-          y: Number(project.y_position) || 0.7
-        }));
-        
-        setBubbleData(bubbles);
-        console.log(bubbleData);
-      } catch (err) {
-        setError('Failed to load projects. Please try again later.');
-        console.error('Projects fetch error:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchProjects = async () => {
+    try {
+      const response = await ProjectFinder.get("/");
+      const bubbles = response.data.data.map(project => ({
+        id: Number(project.id),
+        type: 'project',
+        title: project.title,
+        subtitle: project.subtitle,
+        link: `/${project.title}`,
+        image: project.squareImageUrl,
+        opacity: Number(project.bg_opacity),
+        radius: Number(project.radius) || 20,
+        x: Number(project.x_position) || 0.7,
+        y: Number(project.y_position) || 0.7
+      }));
 
-    fetchProjects();
-  }, []);
+      setBubbleData(bubbles);
+    } catch (err) {
+      setError('Failed to load projects. Please try again later.');
+      console.error('Projects fetch error:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchProjects();
+}, []); // ✅ correct
+
   
   if (isLoading) {
     return (

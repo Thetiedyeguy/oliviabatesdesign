@@ -1,5 +1,4 @@
 .container {
-    max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
     background: #fff;
@@ -156,4 +155,14 @@
     margin-left: 0.5rem;
   }
   
+
+  .bubbleContainer {
+    display: grid;
+    width: 100%;
+    gap: 2rem;
+    grid-template-columns: 1;
+    background-color: #51604E;
+    overscroll-behavior: contain;
+    touch-action: none;
+  }
   
