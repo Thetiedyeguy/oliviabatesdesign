@@ -73,8 +73,8 @@ const ISAM = () => {
                         EcoMaterial Library
                     </h2>
                     <p className={styles.modelBodyText}>
-                        <i>Wordpress</i> use existing branding to organize layout <br/>
-                        <i>Photoshop</i> photograph and edit sample photos 
+                        <i className={styles.i}>Wordpress</i> use existing branding to organize layout <br/>
+                        <i className={styles.i}>Photoshop</i> photograph and edit sample photos 
                     </p>
                     <h2 className={styles.modelHeader}>
                         Poster Layout:

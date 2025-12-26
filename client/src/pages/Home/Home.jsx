@@ -73,6 +73,7 @@ const Home = () => {
           <AlternatingText
             text="Olivia Bates"
             className={styles.name}
+            even ={0}
           />
         </div>
         <p className={styles.desc}>
@@ -83,9 +84,11 @@ const Home = () => {
         </svg>
       </section>
       <section className={styles.featured}>
-        <p className={styles.featuredTitle}>
-          PROJECTS
-        </p>
+        <AlternatingText
+          text="PROJECTS"
+          className={styles.featuredTitle}
+          even={1}
+        />
         <p className={styles.projectSubtitle}>
           UC Davis 2021-25
         </p>

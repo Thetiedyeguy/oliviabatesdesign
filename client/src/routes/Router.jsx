@@ -9,6 +9,7 @@ import StudyLamp from '../pages/ShowcasePages/StudyLamp';
 import IcyLattice from '../pages/ShowcasePages/IcyLattice';
 import About from '../pages/About/About';
 import ISAM from '../pages/ISAM/ISAM';
+import PHigment from '../pages/pHigment/pHigment';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
         path: 'ISAM',
         element: <ISAM />,
       },
+      {
+        path: 'pHigment',
+        element: <PHigment/>
+      }
     ],
   },
 ]);

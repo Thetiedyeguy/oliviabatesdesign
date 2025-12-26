@@ -1,7 +1,7 @@
 import styles from "./AlternatingText.module.css";
 
-const AlternatingText = ({ text, className }) => {
-  let letterIndex = 0;
+const AlternatingText = ({ text, className, even }) => {
+  let letterIndex = 0 + even;
 
   return (
     <p className={className}>
