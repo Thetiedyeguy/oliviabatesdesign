@@ -32,6 +32,8 @@
   color: #666;
   margin-top: -2rem;
   padding-bottom: 2rem;
+  display: block;
+  z-index: 1;
 }
 
 .wave {

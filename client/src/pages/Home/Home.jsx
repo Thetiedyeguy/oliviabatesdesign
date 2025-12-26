@@ -97,11 +97,9 @@ const Home = () => {
         </p>
       </section>
       <section className={styles.projectsGrid}>
-        <div className={styles.projectsGrid}>
           <BubbleSection
             bubbleData={bubbleData}
           />
-        </div>
       </section>
     </div>
   );

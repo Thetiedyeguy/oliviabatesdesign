@@ -97,10 +97,8 @@
 }
 
 .projectsGrid {
-  display: grid;
   width: 100%;
-  gap: 2rem;
-  grid-template-columns: 1;
+  margin-bottom: 2rem;
   background-color: #51604E;
 }
 

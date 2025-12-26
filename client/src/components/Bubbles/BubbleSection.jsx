@@ -21,9 +21,10 @@ const BubbleSection = ({
     y: y / rect.height
   });
 
-  const denormalize = (x, y, rect) => ({
+  const denormalize = (x, y, radius, rect) => ({
     x: x * rect.width,
-    y: y * rect.height
+    y: y * rect.height,
+    radius: (radius  * rect.width) / 1440
   });
 
   // ---------- Init bubbles ----------
@@ -33,11 +34,12 @@ const BubbleSection = ({
     const rect = containerRef.current.getBoundingClientRect();
 
     const mapped = bubbleData.map(b => {
-      const pos = denormalize(b.x, b.y, rect);
+      const pos = denormalize(b.x, b.y, b.radius, rect);
       return {
         ...b,
         px: pos.x,
-        py: pos.y
+        py: pos.y,
+        radius: pos.radius
       };
     });
 
