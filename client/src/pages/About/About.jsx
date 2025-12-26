@@ -54,7 +54,7 @@ const About = () => {
                     where I began my design <br/>
                     degree while my parents settled <br/>
                     in Bend, Oregon. <br/>
-                    At Davis, I learned the fundamentals of design <br/>
+                    &emsp;&emsp;At Davis, I learned the fundamentals of design <br/>
                     through prototyped projects, combining digital tools such <br/>
                     as InDesign, Rhino, Illustrator, Photoshop, and <br/>
                     AutoDesk360 with fabrication methods including 3D <br/>
@@ -70,8 +70,7 @@ const About = () => {
                     communication strategies, which <br/>
                     continue to inform my design practice. <br/>
                     <br/>
-                    Although my coursework emphasized <br/>
-                    product design, I became especially <br/>
+                    &emsp;&emsp;In my studies I became especially <br/>
                     drawn to biomaterials as both a <br/>
                     material practice and a collaborative <br/>
                     research community. I was motivated by <br/>
@@ -102,11 +101,13 @@ const About = () => {
                 </div>
             </div>
             <div className={styles.signOff}>
-                <img
-                    src={grad}
-                    className={styles.grad}
-                    alt="Graduation"
-                />
+                <div>
+                    <img
+                        src={grad}
+                        className={styles.grad}
+                        alt="Graduation"
+                    />
+                </div>
                 <div className={styles.verticalSignOff}>
                     <p className={styles.projectText}>
                         After graduating in Winter 2025, I <br/>
