@@ -5,7 +5,6 @@ import ProjectFinder from '../../../apis/ProjectFinder';
 
 const Header = () => {
   const [projects, setProjects] = useState([]);
-  const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -14,7 +13,6 @@ const Header = () => {
         const response = await ProjectFinder.get('/');
         setProjects(response.data.data); // make sure this matches your API shape
       } catch (err) {
-        setError('Failed to load projects.');
         console.error('Projects fetch error:', err);
       }
     };

@@ -1,4 +1,4 @@
-import styles from './StudyLamp.module.css';
+import styles from './IcyLattice.module.css';
 import Header from '../../components/Layout/Header/Header';
 
 const StudyLamp = () => {

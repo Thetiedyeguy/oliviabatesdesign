@@ -120,7 +120,7 @@ const PHigment = () => {
           <p className={styles.compostBody}>
             <b className={styles.bold}>Research:</b> <br/>
             &emsp;&emsp;<i>Materials</i> biodegradable & colorimetric pigments <br/>
-            &emsp;&emsp;<i>Product Cycle</i> Production -> use -> disposal <br/>
+            &emsp;&emsp;<i>Product Cycle</i> Production -{'>'} use -{'>'} disposal <br/>
             <b className={styles.bold}>Programs:</b> <br/>
             &emsp;&emsp;<i>Canva</i> organise research for group view/edit <br/>
             &emsp;&emsp;<i>Illustrator</i> sticker shapes/ banners for paper <br/>

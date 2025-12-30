@@ -5,7 +5,7 @@ import Projects from '../pages/Projects/Projects';
 import Contact from '../pages/Contact/Contact';
 import AddProject from '../pages/AddProject/AddProject';
 import BioBubbles from '../pages/ShowcasePages/BioBubbles';
-import StudyLamp from '../pages/ShowcasePages/StudyLamp';
+import StudyLamp from '../pages/StudyLamp/StudyLamp';
 import IcyLattice from '../pages/ShowcasePages/IcyLattice';
 import About from '../pages/About/About';
 import ISAM from '../pages/ISAM/ISAM';
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <PHigment/>
       },
       {
-        path: 'frostFabric',
+        path: 'Frost Fabric',
         element: <FrostFabric/>
       }
     ],

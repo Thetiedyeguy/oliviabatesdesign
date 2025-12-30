@@ -21,7 +21,7 @@ const Home = () => {
         title: project.title,
         subtitle: project.subtitle,
         link: `/${project.title}`,
-        image: project.squareImageUrl,
+        image: `/images/${project.title.replace(/\s+/g, '-')}.png`,
         opacity: Number(project.bg_opacity),
         radius: Number(project.radius) || 20,
         x: Number(project.x_position) || 0.7,
@@ -63,6 +63,7 @@ const Home = () => {
       //     </div>
       //   </div>
       // );
+      console.log(bubbleData);
       return (
         <div className ={styles.page}>
       <section className={styles.hero}>

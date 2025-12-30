@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './BubbleSection.module.css';
 
 const MIN_RADIUS = 20;
