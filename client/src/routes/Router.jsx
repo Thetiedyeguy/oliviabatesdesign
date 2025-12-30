@@ -10,6 +10,7 @@ import IcyLattice from '../pages/ShowcasePages/IcyLattice';
 import About from '../pages/About/About';
 import ISAM from '../pages/ISAM/ISAM';
 import PHigment from '../pages/pHigment/pHigment';
+import FrostFabric from '../pages/FrostFabric/FrostFabric';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: 'pHigment',
         element: <PHigment/>
+      },
+      {
+        path: 'frostFabric',
+        element: <FrostFabric/>
       }
     ],
   },

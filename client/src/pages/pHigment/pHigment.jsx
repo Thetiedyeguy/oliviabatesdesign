@@ -2,7 +2,8 @@ import { useRef, useEffect } from 'react';
 import scroll from './assets/pHigment_scroll.jpg';
 import styles from './pHigment.module.css';
 import nails from './assets/pHigment_1.jpg';
-import video from './assets/pHigment Video.mp4'
+import video from './assets/pHigment Video.mp4';
+import compost from './assets/Compost.jpg';
 
 const PHigment = () => {
   const scrollRef = useRef(null);
@@ -55,7 +56,11 @@ const PHigment = () => {
             <path id="Path_1" data-name="Path 1" d="M-1977.313,3368.609c171.981-18.918,200.817-79.71,318.284-58.37s72.091,68.141,154.837,57.254,160.633-64.562,235.436-35.968,67.994,69.069,194.013,35.968,237.214-81.6,401.459-57.254,239.331,118.113,331.033,74.64,121.2-74.783,197.043-53.355,87.9,18.829,88.4,6.409,0-96.769,0-96.769l-1920.51,5.383Z" transform="translate(1977.313 -3241.166)" fill="#FFFFFF"/>
           </svg>
         <div className={styles.scrollContainer} ref={scrollRef}>
-          <img src={scroll} className={styles.scrollImage} />
+          <img 
+            src={scroll}
+            className={styles.scrollImage}
+            alt='project showcase'
+          />
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" width="1920.732" height="155.059" viewBox="0 0 1920.732 155.059" className={styles.wave2}>
           <path id="Path_1" data-name="Path 1" d="M-1977.313,3368.609c171.981-18.918,200.817-79.71,318.284-58.37s72.091,68.141,154.837,57.254,160.633-64.562,235.436-35.968,67.994,69.069,194.013,35.968,237.214-81.6,401.459-57.254,239.331,118.113,331.033,74.64,121.2-74.783,197.043-53.355,87.9,18.829,88.4,6.409,0-96.769,0-96.769l-1920.51,5.383Z" transform="translate(1977.313 -3241.166)" fill="#FFFFFF"/>
@@ -102,6 +107,28 @@ const PHigment = () => {
         controls
         playsInline
       />
+      <div className={styles.compostSection}>
+        <img
+          src={compost}
+          className={styles.compost}
+          alt='Compost'
+        />
+        <div className={styles.compostText}>
+          <h1 className={styles.compostTitle}>
+            Design Skills
+          </h1>
+          <p className={styles.compostBody}>
+            <b className={styles.bold}>Research:</b> <br/>
+            &emsp;&emsp;<i>Materials</i> biodegradable & colorimetric pigments <br/>
+            &emsp;&emsp;<i>Product Cycle</i> Production -> use -> disposal <br/>
+            <b className={styles.bold}>Programs:</b> <br/>
+            &emsp;&emsp;<i>Canva</i> organise research for group view/edit <br/>
+            &emsp;&emsp;<i>Illustrator</i> sticker shapes/ banners for paper <br/>
+            &emsp;&emsp;<i>PremierePro</i> record and edit conference video <br/>
+            &emsp;&emsp;<i>Lasercut</i> conference display for samples <br/>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

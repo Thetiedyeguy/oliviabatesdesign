@@ -1,42 +1,78 @@
 import styles from './Header.module.css';
-import { NavLink} from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import ProjectFinder from '../../../apis/ProjectFinder';
 
 const Header = () => {
-    return(
-        <div>
-            <header className={styles.header}>
-                <nav className={styles.nav}>
-                    <div className={styles.navLinks}>
-                    <NavLink 
-                        to="/" 
-                        end
-                        className={({ isActive }) => 
-                        isActive ? styles.activeLink : styles.navLink
-                        }
-                    >
-                        portfolio
-                    </NavLink>
-                    <NavLink 
-                        to="/about"
-                        className={({ isActive }) => 
-                        isActive ? styles.activeLink : styles.navLink
-                        }
-                    >
-                        about
-                    </NavLink>
-                    <NavLink 
-                        to="/projects"
-                        className={({ isActive }) => 
-                        isActive ? styles.activeLink : styles.navLink
-                        }
-                    >
-                        skills
-                    </NavLink>
-                    </div>
-                </nav>
-            </header>
+  const [projects, setProjects] = useState([]);
+  const [error, setError] = useState('');
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await ProjectFinder.get('/');
+        setProjects(response.data.data); // make sure this matches your API shape
+      } catch (err) {
+        setError('Failed to load projects.');
+        console.error('Projects fetch error:', err);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  return (
+    <header className={styles.header}>
+      <nav className={styles.nav}>
+        <div className={styles.navLinks}>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              isActive ? styles.activeLink : styles.navLink
+            }
+          >
+            portfolio
+          </NavLink>
+
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? styles.activeLink : styles.navLink
+            }
+          >
+            about
+          </NavLink>
+
+          {/* Dropdown */}
+          <div
+            className={styles.dropdown}
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+          >
+            <span className={styles.navLink}>
+              skills ▾
+            </span>
+
+            {open && (
+              <div className={styles.dropdownMenu}>
+                {projects.map(project => (
+                  <Link
+                    key={project.id}
+                    to={`/${project.title}`}
+                    className={styles.dropdownItem}
+                  >
+                    {project.title}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-    )
-}
+      </nav>
+    </header>
+  );
+};
 
 export default Header;

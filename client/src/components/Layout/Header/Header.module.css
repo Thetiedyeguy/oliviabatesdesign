@@ -1,49 +1,84 @@
 .header {
-    width: 100%;
-    background-color: #51604E;
-  }
+  width: 100%;
+  background-color: #51604E;
+}
 
-  .nav {
-    display: flex;
-    align-items: flex-end;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-  
-  .navLinks {
-    display: flex;
-    gap: 2rem;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    margin-left: auto;
-  }
-  
-  .navLink {
-    color: #FFFFFF;
-    font-family: 'Body';
-    text-decoration: none;
-    transition: color 0.3s ease;
-    margin: auto;
-    white-space: nowrap;
-    padding: 1rem;
-    font-size: 1.5rem;
-  }
-  
-  .activeLink {
-    color: #FFFFFF;
-    transition: color 0.3s ease;
-    margin: auto;
-    white-space: nowrap;
-    padding: 1rem;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-family: 'Body-Bold';
-  }
-  
-  .activeLink:hover {
-    color: rgba(255, 255, 255, 0.8);
-  }
-  
-  .navLink:hover {
-    color: rgba(255, 255, 255, 0.8);
-  }
+.nav {
+  display: flex;
+  align-items: flex-end;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+/* Shared link styles */
+.navLink {
+  color: #FFFFFF;
+  font-family: 'Body';
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin: auto;
+  white-space: nowrap;
+  padding: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.activeLink {
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin: auto;
+  white-space: nowrap;
+  padding: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-family: 'Body-Bold';
+  color: #FFFFFF;
+}
+
+/* ===== DROPDOWN ===== */
+
+.dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Dropdown container */
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: -2rem;
+  background-color: #51604E;
+  padding: 0.5rem 0;
+  z-index: 100;
+  border-radius: 0 0 6px 6px;
+}
+
+/* Dropdown links */
+.dropdownItem {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Body';
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.dropdownItem:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}

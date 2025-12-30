@@ -94,9 +94,9 @@
 .nails {
     margin-top: 12rem;
     width: 40%;
-    margin-bottom: 10rem;
+    margin-bottom: 0rem;
     margin-left: 2rem;
-    border-radius: 2rem;
+    margin-right: 0rem;
 }
 
 .nailsTitle{
@@ -114,56 +114,15 @@
     margin: 0;
 }
 
+.nailsText2{
+    color: #FFFFFF;
+    font-family: 'body';
+    font-size: 2.5rem;
+    margin: 0;
+    margin-left: 12rem;
+    margin-bottom: 5rem;
+}
+
 .authors {
     font-size: 2rem;
-}
-
-.video {
-  width: 80%;
-  max-width: 100vw;
-  height: auto;
-  display: block;
-  margin: 4rem auto;
-}
-
-.compostSection{
-  padding-left: 6rem;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 5rem;
-}
-
-.compost{
-  width: 30%;
-  border-radius: 2rem;
-}
-
-.compostText{
-  margin: 0;
-  padding: 0;
-  margin-left: 3rem;
-  margin-top: -6rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.compostTitle{
-  font-family: 'Handwriting';
-  color: #FFFFFF;
-  font-size: 5rem;
-  font-weight: 100;
-}
-
-.compostBody{
-  padding: 0;
-  margin: 0;
-  margin-top: -3rem;
-  color: #FFFFFF;
-  font-family: 'body';
-  font-size: 1.75rem;
-  font-weight: 100;
-}
-
-.bold{
-  font-family: 'body-bold';
 }

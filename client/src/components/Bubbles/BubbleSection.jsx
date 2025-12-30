@@ -154,11 +154,13 @@ useEffect(() => {
             }}
           >
             {bubble.image && (
-              <img
-                src={bubble.image}
-                alt={bubble.title}
-                className={styles.bubbleImage}
-              />
+              <a href={bubble.link}>
+                <img
+                  src={bubble.image}
+                  alt={bubble.title}
+                  className={styles.bubbleImage}
+                />
+              </a>
             )}
             <div className={styles.bubbleText}>
               <p className={styles.title}>{bubble.title}</p>
