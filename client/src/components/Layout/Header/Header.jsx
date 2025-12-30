@@ -50,7 +50,7 @@ const Header = () => {
             onMouseLeave={() => setOpen(false)}
           >
             <span className={styles.navLink}>
-              skills ▾
+              projects ▾
             </span>
 
             {open && (

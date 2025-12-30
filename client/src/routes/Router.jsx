@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         element: <IcyLattice />,
       },
       {
-        path: 'ISAM',
+        path: 'ISAM 2024',
         element: <ISAM />,
       },
       {

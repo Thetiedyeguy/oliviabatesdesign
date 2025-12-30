@@ -8,7 +8,8 @@ const RADIUS_STEP = 1;
 const BubbleSection = ({
   bubbleData,
   editable = false,
-  onPositionChange = () => {}
+  onPositionChange = () => {},
+  onSelectBubble = () => {}
 }) => {
   const containerRef = useRef(null);
   const [bubbles, setBubbles] = useState([]);
@@ -53,6 +54,12 @@ const BubbleSection = ({
   e.preventDefault();
   draggingRef.current = bubble.id;
   isDraggingRef.current = true;
+
+  onSelectBubble({
+    ...bubble,
+    x: bubble.px / containerRef.current.getBoundingClientRect().width,
+    y: bubble.py / containerRef.current.getBoundingClientRect().height
+  });
 };
 
 useEffect(() => {
@@ -147,14 +154,15 @@ useEffect(() => {
           onMouseDown={e => onMouseDown(e, bubble)}
         >
           <div
-            className={styles.bubble}
+            className={(bubble.featured ? styles.bubble: styles.backgroundBubble)}
             style={{
               background: `rgba(255,255,255,${bubble.opacity})`,
               cursor: editable ? 'grab' : 'default'
             }}
           >
-            {bubble.image && (
-              <a href={bubble.link}>
+            {bubble.image && bubble.featured && (
+              <a 
+                href={(!editable && bubble.link)}>
                 <img
                   src={bubble.image}
                   alt={bubble.title}
@@ -162,10 +170,12 @@ useEffect(() => {
                 />
               </a>
             )}
-            <div className={styles.bubbleText}>
-              <p className={styles.title}>{bubble.title}</p>
-              <p className={styles.subtitle}>{bubble.subtitle}</p>
-            </div>
+            {bubble.featured && (
+              <div className={styles.bubbleText}>
+                <p className={styles.title}>{bubble.title}</p>
+                <p className={styles.subtitle}>{bubble.subtitle}</p>
+              </div>
+            )}
           </div>
         </div>
       ))}

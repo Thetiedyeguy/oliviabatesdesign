@@ -26,22 +26,48 @@ const AddProject = () => {
   const [editingId, setEditingId] = useState(null);
   const [bubbleData, setBubbleData] = useState([]);
 
+
+  const getImagePath = async (title) => {
+  const base = `/images/${title.replace(/\s+/g, '-')}`;
+  const extensions = ['jpg', 'jpeg', 'png'];
+
+  for (const ext of extensions) {
+    const url = `${base}.${ext}`;
+    try {
+      const res = await fetch(url, { method: 'GET' });
+      if (res.ok) return url;
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  return null;
+};
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await ProjectFinder.get('/');
-        const bubbles = response.data.data.map(project => ({
-          id: Number(project.id),
-          type: 'project',
-          title: project.title,
-          subtitle: project.subtitle,
-          link: `/${project.title}`,
-          image: `/images/${project.title.replace(/\s+/g, '-')}.png`,
-          opacity: Number(project.bg_opacity),
-          radius: Number(project.radius) || 20,
-          x: Number(project.x_position) || 0.7,
-          y: Number(project.y_position) || 0.7
-        }));
+        console.log(response.data.data);
+        const bubbles = await Promise.all(
+          response.data.data.map(async (project) => {
+            const image = await getImagePath(project.title);
+
+            return {
+              id: Number(project.id),
+              type: 'project',
+              title: project.title,
+              subtitle: project.subtitle,
+              link: `/${project.title}`,
+              image, // ← resolved image path
+              opacity: Number(project.bg_opacity),
+              radius: Number(project.radius) || 20,
+              x: Number(project.x_position) || 0.7,
+              y: Number(project.y_position) || 0.7,
+              featured: project.featured
+            };
+          })
+        );
         setBubbleData(bubbles);
         setProjects(response.data.data);
       } catch (err) {
@@ -95,6 +121,59 @@ const AddProject = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSelectBubble = (bubble) => {
+  setEditingId(bubble.id);
+
+  setFormData({
+    title: bubble.title || '',
+    subtitle: bubble.subtitle || '',
+    squareImage: bubble.image || '',
+    link: bubble.link || '',
+    featured: bubble.featured || false,
+    radius: bubble.radius,
+    bg_opacity: bubble.opacity,
+    x_position: bubble.x,
+    y_position: bubble.y
+  });
+};
+
+useEffect(() => {
+  if (!editingId) return;
+
+  const timeout = setTimeout(async () => {
+    try {
+      await ProjectFinder.patch(`/${editingId}`, {
+        title: formData.title,                 // ✅ REQUIRED
+        subtitle: formData.subtitle,
+        link: formData.link,
+        featured: formData.featured,
+
+        x_position: formData.x_position,
+        y_position: formData.y_position,
+        radius: Math.round(formData.radius),
+        bg_opacity: formData.bg_opacity
+      });
+    } catch (err) {
+      console.error('Auto-save failed', err.response?.data || err);
+    }
+  }, 150);
+
+  return () => clearTimeout(timeout);
+}, [
+  editingId,
+  formData.title,
+  formData.subtitle,
+  formData.link,
+  formData.featured,
+  formData.x_position,
+  formData.y_position,
+  formData.radius,
+  formData.bg_opacity
+]);
+
+
+
 
   console.log(bubbleData);
 
@@ -239,12 +318,13 @@ const AddProject = () => {
         <BubbleSection
           bubbleData={bubbleData}
           editable
+          onSelectBubble={handleSelectBubble}
           onPositionChange={(x, y, radius) => {
             setFormData(prev => ({
               ...prev,
               x_position: Number(x.toFixed(3)),
               y_position: Number(y.toFixed(3)),
-              radius: radius
+              radius: Math.round(radius)
             }));
           }}
         />
