@@ -3,11 +3,10 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* adjust if needed */
   overflow: visible; /* allow bubbles to scale outside container */
   background-color: rgba(81, 96, 78, 0.8); /* optional transparent overlay */
   z-index: 9999; /* very high to go above almost everything */
-  height: 150vh;
+  height: 200vh;
 }
 
 .bubbleWrapper {
