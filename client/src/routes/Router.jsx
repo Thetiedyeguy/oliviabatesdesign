@@ -11,6 +11,7 @@ import About from '../pages/About/About';
 import ISAM from '../pages/ISAM/ISAM';
 import PHigment from '../pages/pHigment/pHigment';
 import FrostFabric from '../pages/FrostFabric/FrostFabric';
+import Parklet from '../pages/Parklet/Parklet';
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'Frost Fabric',
         element: <FrostFabric/>
+      },
+      {
+        path: 'Parklet',
+        element: <Parklet/>
       }
     ],
   },
