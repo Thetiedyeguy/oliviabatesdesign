@@ -12,6 +12,8 @@ import ISAM from '../pages/ISAM/ISAM';
 import PHigment from '../pages/pHigment/pHigment';
 import FrostFabric from '../pages/FrostFabric/FrostFabric';
 import Parklet from '../pages/Parklet/Parklet';
+import DripDrop from '../pages/DripDrop/DripDrop';
+import NatureNova from '../pages/NatureNova/NatureNova';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
       {
         path: 'Parklet',
         element: <Parklet/>
+      },
+      {
+        path: 'DripDrop',
+        element: <DripDrop/>
+      },
+      {
+        path: 'NatureNova',
+        element: <NatureNova/>
       }
     ],
   },

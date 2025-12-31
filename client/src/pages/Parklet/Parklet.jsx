@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import styles from "./Parklet.module.css";
-import scroll from "./assets/Parklet_scroll.jpg"
+import scroll from "./assets/Parklet_scroll.jpg";
 import collage1 from './assets/9.png';
 import collage2 from './assets/8.png';
 import collage3 from './assets/7.png';
@@ -127,17 +127,17 @@ const Parklet = () => {
                     />
                 </div>
             </div>
-            <div className={styles.compostSection}>
+            <div className={styles.designSection}>
                 <img
                 src={collage3}
                 className={styles.prototype}
                 alt='prototype'
                 />
-                <div className={styles.compostText}>
-                <h1 className={styles.compostTitle}>
+                <div className={styles.designText}>
+                <h1 className={styles.designTitle}>
                     Design Skills
                 </h1>
-                <p className={styles.compostBody}>
+                <p className={styles.designBody}>
                     <b className={styles.bold}>Programs:</b> <br/>
                     &emsp;&emsp;<i>Rhino</i> sketch different shade structure layouts <br/>
                     &emsp;&emsp;<i>Photoshop</i> rendered parklet for visual aid <br/>
