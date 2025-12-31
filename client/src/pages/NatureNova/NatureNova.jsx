@@ -45,9 +45,9 @@ const NatureNova = () => {
         <div>
             <div className={styles.page}>
                 <h1 className={styles.title}>
-                    Drip Drop
+                    NatureNova
                 </h1>
-                <h1 className={styles.subtitle}>first 3D print: push top lamp</h1>
+                <h1 className={styles.subtitle}>exploration in popup cards and electronics</h1>
                     <svg xmlns="http://www.w3.org/2000/svg" width="1920.732" height="155.059" viewBox="0 0 1920.732 155.059" className={styles.wave}>
                     <path id="Path_1" data-name="Path 1" d="M-1977.313,3368.609c171.981-18.918,200.817-79.71,318.284-58.37s72.091,68.141,154.837,57.254,160.633-64.562,235.436-35.968,67.994,69.069,194.013,35.968,237.214-81.6,401.459-57.254,239.331,118.113,331.033,74.64,121.2-74.783,197.043-53.355,87.9,18.829,88.4,6.409,0-96.769,0-96.769l-1920.51,5.383Z" transform="translate(1977.313 -3241.166)" fill="#FFFFFF"/>
                     </svg>
@@ -97,9 +97,9 @@ const NatureNova = () => {
                 </h1>
                 <p className={styles.designBody}>
                     <b className={styles.bold}>Programs:</b> <br/>
-                    &emsp;&emsp;<i>Sketch</i> water-inspired light fixtures <br/>
-                    &emsp;&emsp;<i>Rhino</i> model water splash shell and ripple diffuser <br/>
-                    &emsp;&emsp;<i>Illustrator</i> laser cut template for base. <br/>
+                    &emsp;&emsp;<i>Sketch</i> bioplastic-inspired projects and toys <br/>
+                    &emsp;&emsp;<i>Rhino</i> 3D printed molds for biofoam <br/>
+                    &emsp;&emsp;<i>Illustrator</i> poster and process books <br/>
                 </p>
                 </div>
             </div>

@@ -1,27 +1,68 @@
+import { useRef, useEffect } from 'react';
 import styles from './ISAM.module.css';
-import scroll from './Assets/Scroll_ISAM.pdf';
+import scroll from './Assets/ISAM_scroll.jpg';
 import award from './Assets/ISAM.jpg';
 import poster from './Assets/Poster.png';
 import model from './Assets/ISAM_Model.png';
 
 const ISAM = () => {
+
+    const scrollRef = useRef(null);
+          const SCROLL_SPEED = 2; // change for faster/slower scrolling
+        
+        useEffect(() => {
+            const container = scrollRef.current;
+            if (!container) return;
+        
+            const img = container.querySelector('img');
+            if (!img) return;
+        
+            // Function to set initial scroll to midway
+            const setInitialScroll = () => {
+              container.scrollLeft = img.scrollWidth / 32;
+            };
+        
+            // If image is already loaded
+            if (img.complete) {
+              setInitialScroll();
+            } else {
+              img.addEventListener('load', setInitialScroll);
+            }
+        
+            // Mouse wheel horizontal scrolling
+            const handleWheel = e => {
+              e.preventDefault();
+              container.scrollLeft += e.deltaY * SCROLL_SPEED;
+            };
+        
+            container.addEventListener('wheel', handleWheel, { passive: false });
+        
+            return () => {
+              container.removeEventListener('wheel', handleWheel);
+              img.removeEventListener('load', setInitialScroll);
+            };
+        }, []);
     return (
         <div>
             <div className={styles.page}>
                 <h1 className={styles.title}>
                     ISAM 2024
                 </h1>
-                <h1 className={styles.subtitle}>
-                    student samples in EcoMaterials libary
-                </h1>
+                <h1 className={styles.subtitle}>student samples in EcoMaterials library</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1920.732" height="155.059" viewBox="0 0 1920.732 155.059" className={styles.wave}>
+                    <path id="Path_1" data-name="Path 1" d="M-1977.313,3368.609c171.981-18.918,200.817-79.71,318.284-58.37s72.091,68.141,154.837,57.254,160.633-64.562,235.436-35.968,67.994,69.069,194.013,35.968,237.214-81.6,401.459-57.254,239.331,118.113,331.033,74.64,121.2-74.783,197.043-53.355,87.9,18.829,88.4,6.409,0-96.769,0-96.769l-1920.51,5.383Z" transform="translate(1977.313 -3241.166)" fill="#FFFFFF"/>
+                    </svg>
+                <div className={styles.scrollContainer} ref={scrollRef}>
+                    <img 
+                    src={scroll}
+                    className={styles.scrollImage}
+                    alt='project showcase'
+                    />
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1920.732" height="155.059" viewBox="0 0 1920.732 155.059" className={styles.wave2}>
+                    <path id="Path_1" data-name="Path 1" d="M-1977.313,3368.609c171.981-18.918,200.817-79.71,318.284-58.37s72.091,68.141,154.837,57.254,160.633-64.562,235.436-35.968,67.994,69.069,194.013,35.968,237.214-81.6,401.459-57.254,239.331,118.113,331.033,74.64,121.2-74.783,197.043-53.355,87.9,18.829,88.4,6.409,0-96.769,0-96.769l-1920.51,5.383Z" transform="translate(1977.313 -3241.166)" fill="#FFFFFF"/>
+                </svg>
             </div>
-            <object
-                data={scroll}
-                type="application/pdf"
-                width="100%"
-                height="800px"
-            >
-            </object>
             <div className={styles.awardSection}>
                 <div className={styles.awardInfo}>
                     <h1 className={styles.awardTitle}>
