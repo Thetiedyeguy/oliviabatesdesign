@@ -10,13 +10,20 @@ const getImagePath = async (title) => {
 
   for (const ext of extensions) {
     const url = `${base}.${ext}`;
+
     try {
       const res = await fetch(url, { method: 'GET' });
-      if (res.ok) return url;
+
+      const contentType = res.headers.get('content-type') || '';
+
+      if (res.ok && contentType.startsWith('image/')) {
+        return url;
+      }
     } catch (e) {
       // ignore
     }
   }
+
 
   return null;
 };
