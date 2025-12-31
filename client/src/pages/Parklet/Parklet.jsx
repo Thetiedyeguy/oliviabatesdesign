@@ -1,11 +1,8 @@
 import { useRef, useEffect } from 'react';
 import styles from "./Parklet.module.css";
 import scroll from "./assets/Parklet_scroll.jpg";
-import collage1 from './assets/9.png';
-import collage2 from './assets/8.png';
-import collage3 from './assets/7.png';
-import collage4 from './assets/6.png';
-import collage5 from './assets/5.png';
+import collage from './assets/collage.png';
+
 
 const Parklet = () => {
     const scrollRef = useRef(null);
@@ -94,42 +91,14 @@ const Parklet = () => {
                     one unified parklet.
                 </p>
             </div>
-            <div className={styles.collage}>
-                <div className={styles.collageColumn1}>
-                    <img
-                        src={collage5}
-                        className={styles.collageBig}
-                        alt='Parklet1'
-                    />
-                    <img
-                        src={collage4}
-                        className={styles.collageBig}
-                        alt='Parklet2'
-                    />
-                </div>
-                <div className={styles.collageColumn2}>
-                    <div className={styles.collageRow}>
-                        <img
-                        src={collage3}
-                        className={styles.collageSmall}
-                        alt='Parklet3'
-                        />
-                        <img
-                            src={collage2}
-                            className={styles.collageSmall}
-                            alt='Parklet4'
-                        />
-                    </div>
-                    <img
-                        src={collage1}
-                        className={styles.collageBig}
-                        alt='Parklet5'
-                    />
-                </div>
-            </div>
+            <img
+                src={collage}
+                className={styles.collage}
+                alt='collage'
+            />
             <div className={styles.designSection}>
                 <img
-                src={collage3}
+                src={collage}
                 className={styles.prototype}
                 alt='prototype'
                 />

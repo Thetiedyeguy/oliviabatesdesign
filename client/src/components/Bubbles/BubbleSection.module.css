@@ -56,6 +56,7 @@
 .bubbleWrapper:hover .bubble {
   transform: scale(1.08);
   background: rgba(255, 255, 255, 0.7);
+  z-index: 9999999;
 }
 
 .bubbleImage {
@@ -77,12 +78,10 @@
 
 .title{
     font-family: 'Body-Bold', sans-serif;
-    font-size: 2rem; /* adjust for bubble size */
 }
 
 .subtitle{
     font-family: 'Body', sans-serif;
-    font-size: 2rem; /* adjust for bubble size */
 }
 
 .bubbleWrapper:hover .bubbleImage {

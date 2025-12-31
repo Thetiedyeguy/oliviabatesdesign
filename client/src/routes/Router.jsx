@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         element: <PHigment/>
       },
       {
-        path: 'Frost Fabric',
+        path: 'FrostFabric',
         element: <FrostFabric/>
       },
       {

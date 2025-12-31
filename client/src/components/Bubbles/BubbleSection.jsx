@@ -4,6 +4,9 @@ import styles from './BubbleSection.module.css';
 const MIN_RADIUS = 20;
 const MAX_RADIUS = 300;
 const RADIUS_STEP = 1;
+const TITLE_SCALE = 0.30;
+const SUBTITLE_SCALE = 0.3;
+
 
 const BubbleSection = ({
   bubbleData,
@@ -132,6 +135,68 @@ useEffect(() => {
   isDraggingRef.current = false;
 };
 
+const fitTextToCircle = ({
+  text,
+  radius,
+  fontFamily,
+  maxFontSize = 100,
+  minFontSize = 8,
+  padding = 0.15
+}) => {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  const maxWidth = radius * 2 * (1 - padding);
+  const maxHeight = radius * 2 * (1 - padding);
+
+  let low = minFontSize;
+  let high = maxFontSize;
+  let best = minFontSize;
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    ctx.font = `${mid}px ${fontFamily}`;
+
+    const metrics = ctx.measureText(text);
+    const height = mid * 1.2; // approx line height
+
+    if (metrics.width <= maxWidth && height <= maxHeight) {
+      best = mid;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  return best;
+};
+
+const computedBubbles = bubbles.map(b => {
+  if (!b.featured) return b;
+
+  const titleSize = fitTextToCircle({
+    text: b.title,
+    radius: b.radius,
+    fontFamily: 'Body-Bold',
+    maxFontSize: b.radius * TITLE_SCALE
+  });
+
+  const subtitleSize = fitTextToCircle({
+    text: b.subtitle,
+    radius: b.radius,
+    fontFamily: 'Body',
+    maxFontSize: b.radius * SUBTITLE_SCALE
+  });
+
+  return {
+    ...b,
+    titleSize,
+    subtitleSize
+  };
+});
+
+
+
 
   // ---------- Render ----------
   return (
@@ -142,7 +207,7 @@ useEffect(() => {
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
     >
-      {bubbles.map(bubble => (
+      {computedBubbles.map(bubble => (
         <div
           key={bubble.id}
           className={styles.bubbleWrapper}
@@ -172,8 +237,8 @@ useEffect(() => {
             )}
             {bubble.featured && (
               <div className={styles.bubbleText}>
-                <p className={styles.title}>{bubble.title}</p>
-                <p className={styles.subtitle}>{bubble.subtitle}</p>
+                <p className={styles.title} style={{ fontSize: bubble.titleSize }}>{bubble.title}:</p>
+                <p className={styles.subtitle} style={{ fontSize: bubble.subtitleSize }}>{bubble.subtitle}</p>
               </div>
             )}
           </div>
