@@ -5,7 +5,7 @@ const MIN_RADIUS = 20;
 const MAX_RADIUS = 300;
 const RADIUS_STEP = 1;
 const TITLE_SCALE = 0.30;
-const SUBTITLE_SCALE = 0.3;
+const SUBTITLE_SCALE = 0.2;
 
 
 const BubbleSection = ({
