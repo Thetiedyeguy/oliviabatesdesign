@@ -70,7 +70,7 @@
 .bubbleText {
   position: absolute;
   color: #51604e;
-  text-align: center;
+  margin-left: 15%;
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none; /* so hover still triggers the bubble */
@@ -78,10 +78,12 @@
 
 .title{
     font-family: 'Body-Bold', sans-serif;
+    margin: 0;
 }
 
 .subtitle{
     font-family: 'Body', sans-serif;
+    margin: 0;
 }
 
 .bubbleWrapper:hover .bubbleImage {

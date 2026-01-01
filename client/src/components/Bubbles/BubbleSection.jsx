@@ -141,8 +141,8 @@ const fitTextToCircle = ({
   fontFamily,
   maxFontSize = 100,
   minFontSize = 10,
-  padding = 0.15,
-  lineHeight = 1.15
+  padding = 0.3,
+  lineHeight = 1.0
 }) => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
