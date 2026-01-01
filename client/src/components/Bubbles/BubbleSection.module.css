@@ -74,6 +74,7 @@
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none; /* so hover still triggers the bubble */
+  width: 85%;
 }
 
 .title{
