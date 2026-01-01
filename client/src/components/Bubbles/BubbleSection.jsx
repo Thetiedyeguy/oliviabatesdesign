@@ -140,8 +140,9 @@ const fitTextToCircle = ({
   radius,
   fontFamily,
   maxFontSize = 100,
-  minFontSize = 8,
-  padding = 0.15
+  minFontSize = 10,
+  padding = 0.15,
+  lineHeight = 1.15
 }) => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -157,10 +158,24 @@ const fitTextToCircle = ({
     const mid = Math.floor((low + high) / 2);
     ctx.font = `${mid}px ${fontFamily}`;
 
-    const metrics = ctx.measureText(text);
-    const height = mid * 1.2; // approx line height
+    const words = text.split(" ");
+    let lines = 1;
+    let lineWidth = 0;
 
-    if (metrics.width <= maxWidth && height <= maxHeight) {
+    for (const word of words) {
+      const wordWidth = ctx.measureText(word + " ").width;
+
+      if (lineWidth + wordWidth > maxWidth) {
+        lines++;
+        lineWidth = wordWidth;
+      } else {
+        lineWidth += wordWidth;
+      }
+    }
+
+    const totalHeight = lines * mid * lineHeight;
+
+    if (totalHeight <= maxHeight) {
       best = mid;
       low = mid + 1;
     } else {
@@ -170,6 +185,7 @@ const fitTextToCircle = ({
 
   return best;
 };
+
 
 const computedBubbles = bubbles.map(b => {
   if (!b.featured) return b;
