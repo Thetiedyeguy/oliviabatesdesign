@@ -101,7 +101,7 @@ const About = () => {
                 </div>
             </div>
             <div className={styles.signOff}>
-                <div>
+                <div className={styles.gradContainer}>
                     <img
                         src={grad}
                         className={styles.grad}
@@ -110,7 +110,7 @@ const About = () => {
                 </div>
                 <div className={styles.verticalSignOff}>
                     <p className={styles.projectText}>
-                        After graduating in Winter 2025, I <br/>
+                        &emsp;&emsp;After graduating in Winter 2025, I <br/>
                         joined the Interactive Organisms Lab, <br/>
                         where I researched and developed a <br/>
                         design product and paper for ISWC <br/>

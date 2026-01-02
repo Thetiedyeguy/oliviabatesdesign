@@ -105,11 +105,11 @@
 }
 
 .designSection{
-  padding-left: 6rem;
+  padding-left: 10rem;
   display: flex;
   flex-direction: row;
   margin-bottom: 5rem;
-  margin-top: 2rem;
+  margin-top: 0rem;
 }
 
 .prototype{
@@ -121,7 +121,7 @@
   margin: 0;
   padding: 0;
   margin-left: 3rem;
-  margin-top: -4rem;
+  margin-top: 0rem;
   display: flex;
   flex-direction: column;
 }

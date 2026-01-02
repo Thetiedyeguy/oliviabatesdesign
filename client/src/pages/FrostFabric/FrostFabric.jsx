@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import styles from './FrostFabric.module.css';
-import scroll from './assets/Frost_scoll.jpg'
+import scroll from './assets/FrostFabric_scroll.png'
 import collage from './assets/4Photos_Fabric.png'
 
 const FrostFabric = () => {
@@ -10,33 +10,46 @@ const FrostFabric = () => {
     useEffect(() => {
         const container = scrollRef.current;
         if (!container) return;
-    
+
         const img = container.querySelector('img');
         if (!img) return;
-    
-        // Function to set initial scroll to midway
+
         const setInitialScroll = () => {
-          container.scrollLeft = img.scrollWidth / 32;
+            container.scrollLeft = img.scrollWidth / 32;
         };
-    
-        // If image is already loaded
+
         if (img.complete) {
-          setInitialScroll();
+            setInitialScroll();
         } else {
-          img.addEventListener('load', setInitialScroll);
+            img.addEventListener('load', setInitialScroll);
         }
-    
-        // Mouse wheel horizontal scrolling
-        const handleWheel = e => {
-          e.preventDefault();
-          container.scrollLeft += e.deltaY * SCROLL_SPEED;
+
+        const handleWheel = (e) => {
+            const { deltaY } = e;
+
+            const atLeftEdge = container.scrollLeft <= 0;
+            const atRightEdge =
+            container.scrollLeft + container.clientWidth >= container.scrollWidth - 1;
+
+            const scrollingRight = deltaY > 0;
+            const scrollingLeft = deltaY < 0;
+
+            // If we're NOT at an edge, force horizontal scrolling
+            if (
+            (!atLeftEdge && scrollingLeft) ||
+            (!atRightEdge && scrollingRight)
+            ) {
+            e.preventDefault();
+            container.scrollLeft += deltaY * SCROLL_SPEED;
+            }
+            // Otherwise: allow normal vertical scroll
         };
-    
+
         container.addEventListener('wheel', handleWheel, { passive: false });
-    
+
         return () => {
-          container.removeEventListener('wheel', handleWheel);
-          img.removeEventListener('load', setInitialScroll);
+            container.removeEventListener('wheel', handleWheel);
+            img.removeEventListener('load', setInitialScroll);
         };
     }, []);
     return(
@@ -66,7 +79,7 @@ const FrostFabric = () => {
                             Project
                         </h1>
                         <p className={styles.meshText}>
-                            Inspired by falling snowflakes, <br/>
+                            &emsp;&emsp;Inspired by falling snowflakes, <br/>
                             I set out to create a fabric that <br/>
                             appears light and crystalline <br/>
                             yet behaves with strength. <br/>
@@ -78,7 +91,7 @@ const FrostFabric = () => {
                             through curved, structural <br/>
                             forms.
                             <br/>
-                            Built from a single repeating <br/>
+                            &emsp;&emsp;Built from a single repeating <br/>
                             line, the system can expand <br/>
                             into a fabric of any size. <br/>
                             Imagined for fantasy settings, <br/>

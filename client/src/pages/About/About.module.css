@@ -198,14 +198,14 @@ body {
 
 .verticalSignOff{
   margin-top: -7rem;
-  width: 80%;
   display: flex;
+  width: 85%;
   flex-direction: column;
 }
 
 .grad{
   border-radius: 3rem;
-  width: 62%;
+  width: 65%;
   margin-right: 5rem;
   margin-left: 10rem;
   margin-bottom: 3rem;
@@ -213,7 +213,7 @@ body {
 }
 
 .project{
-  width: 75%;
+  width: 80%;
   border-radius: 1rem;
   border: 7px solid black;
 }
@@ -222,4 +222,8 @@ body {
   font-size: 2rem;
   font-family: 'body';
   color: #51604E;
+}
+
+.gradContainer{
+  width: 100%;
 }

@@ -31,6 +31,21 @@
   cursor: pointer;
 }
 
+.hamburger{
+  color: #FFFFFF;
+  font-family: 'Body';
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin: 0;
+  margin-left: -0.5rem;
+  margin-top: -0.25rem;
+  white-space: nowrap;
+  padding: 0rem;
+  font-size: 1.5rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
 .navLink:hover {
   color: rgba(255, 255, 255, 0.8);
 }

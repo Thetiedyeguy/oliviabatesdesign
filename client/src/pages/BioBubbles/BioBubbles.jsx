@@ -3,7 +3,7 @@ import styles from "./BioBubbles.module.css";
 import scroll from "./assets/BioBubbles_scroll.png";
 import video from './assets/video.mp4';
 import model from './assets/model.png';
-import instructions from './assets/biocraftingSeaweedYarn.png';
+import poster from './assets/biocraftingSeaweedYarn.pdf';
 
 const BioBubbles = () => {
     const scrollRef = useRef(null);
@@ -12,35 +12,49 @@ const BioBubbles = () => {
     useEffect(() => {
         const container = scrollRef.current;
         if (!container) return;
-    
+
         const img = container.querySelector('img');
         if (!img) return;
-    
-        // Function to set initial scroll to midway
+
         const setInitialScroll = () => {
-          container.scrollLeft = img.scrollWidth / 32;
+            container.scrollLeft = img.scrollWidth / 32;
         };
-    
-        // If image is already loaded
+
         if (img.complete) {
-          setInitialScroll();
+            setInitialScroll();
         } else {
-          img.addEventListener('load', setInitialScroll);
+            img.addEventListener('load', setInitialScroll);
         }
-    
-        // Mouse wheel horizontal scrolling
-        const handleWheel = e => {
-          e.preventDefault();
-          container.scrollLeft += e.deltaY * SCROLL_SPEED;
+
+        const handleWheel = (e) => {
+            const { deltaY } = e;
+
+            const atLeftEdge = container.scrollLeft <= 0;
+            const atRightEdge =
+            container.scrollLeft + container.clientWidth >= container.scrollWidth - 1;
+
+            const scrollingRight = deltaY > 0;
+            const scrollingLeft = deltaY < 0;
+
+            // If we're NOT at an edge, force horizontal scrolling
+            if (
+            (!atLeftEdge && scrollingLeft) ||
+            (!atRightEdge && scrollingRight)
+            ) {
+            e.preventDefault();
+            container.scrollLeft += deltaY * SCROLL_SPEED;
+            }
+            // Otherwise: allow normal vertical scroll
         };
-    
+
         container.addEventListener('wheel', handleWheel, { passive: false });
-    
+
         return () => {
-          container.removeEventListener('wheel', handleWheel);
-          img.removeEventListener('load', setInitialScroll);
+            container.removeEventListener('wheel', handleWheel);
+            img.removeEventListener('load', setInitialScroll);
         };
     }, []);
+
     return(
         <div>
             <div className={styles.page}>
@@ -78,13 +92,13 @@ const BioBubbles = () => {
                     a lot of added material. My early tests with charcoal powder <br/>
                     showed that the yarn was too porous to carry electricity well. <br/>
                     <br/>
-                    After more research and testing, I switched to using activated <br/>
+                    &emsp;&emsp;After more research and testing, I switched to using activated <br/>
                     carbon black powder, which worked much better. I kept <br/>
                     adjusting the recipe to find the right balance between <br/>
                     conductivity and flexibility, making the string both effective <br/>
                     and comfortable to wear. <br/>
                     <br/>
-                    With this research, I put together a detailed Instructables <br/>
+                    &emsp;&emsp;With this research, I put together a detailed Instructables <br/>
                     guide so others could try it too. What started as one material <br/>
                     experiment grew into a bigger look at bioplastic strings and <br/>
                     what they can do. I wrapped up the project with a one-page, <br/>
@@ -124,11 +138,11 @@ const BioBubbles = () => {
             controls
             playsInline
             />
-            <img
-                    src={instructions}
-                    className={styles.instructions}
-                    alt='model'
-                />
+            <object
+                data={poster}
+                type="application/pdf"
+                className={styles.poster}
+            >NatureNova Poster</object>
         </div>
     );
 };

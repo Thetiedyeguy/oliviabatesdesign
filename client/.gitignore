@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# large files
+
+/src/pages/StudyLamp/assets/StudLamp_video.mp4

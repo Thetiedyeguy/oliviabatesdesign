@@ -24,15 +24,6 @@ const Header = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div className={styles.navLinks}>
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) =>
-              isActive ? styles.activeLink : styles.navLink
-            }
-          >
-            portfolio
-          </NavLink>
 
           <NavLink
             to="/about"
@@ -46,12 +37,22 @@ const Header = () => {
           {/* Dropdown */}
           <div
             className={styles.dropdown}
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
           >
-            <span className={styles.navLink}>
-              projects ▾
-            </span>
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                isActive ? styles.activeLink : styles.navLink
+              }
+            >
+              portfolio
+            </NavLink>
+            <p
+              className={styles.hamburger}
+              onMouseDown={() => setOpen(!open)}
+            >
+              {open ? '✗' : '☰'}
+            </p>
 
             {open && (
               <div className={styles.dropdownMenu}>

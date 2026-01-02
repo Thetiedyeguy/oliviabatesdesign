@@ -1,7 +1,10 @@
 import { useRef, useEffect } from 'react';
 import styles from "./Parklet.module.css";
-import scroll from "./assets/Parklet_scroll.jpg";
+import scroll from "./assets/Parklet_scroll.png";
 import collage from './assets/collage.png';
+import model from './assets/3D model.png';
+import render from './assets/Render.png';
+import plan from './assets/plan.png';
 
 
 const Parklet = () => {
@@ -11,33 +14,46 @@ const Parklet = () => {
     useEffect(() => {
         const container = scrollRef.current;
         if (!container) return;
-    
+
         const img = container.querySelector('img');
         if (!img) return;
-    
-        // Function to set initial scroll to midway
+
         const setInitialScroll = () => {
-          container.scrollLeft = img.scrollWidth / 32;
+            container.scrollLeft = img.scrollWidth / 32;
         };
-    
-        // If image is already loaded
+
         if (img.complete) {
-          setInitialScroll();
+            setInitialScroll();
         } else {
-          img.addEventListener('load', setInitialScroll);
+            img.addEventListener('load', setInitialScroll);
         }
-    
-        // Mouse wheel horizontal scrolling
-        const handleWheel = e => {
-          e.preventDefault();
-          container.scrollLeft += e.deltaY * SCROLL_SPEED;
+
+        const handleWheel = (e) => {
+            const { deltaY } = e;
+
+            const atLeftEdge = container.scrollLeft <= 0;
+            const atRightEdge =
+            container.scrollLeft + container.clientWidth >= container.scrollWidth - 1;
+
+            const scrollingRight = deltaY > 0;
+            const scrollingLeft = deltaY < 0;
+
+            // If we're NOT at an edge, force horizontal scrolling
+            if (
+            (!atLeftEdge && scrollingLeft) ||
+            (!atRightEdge && scrollingRight)
+            ) {
+            e.preventDefault();
+            container.scrollLeft += deltaY * SCROLL_SPEED;
+            }
+            // Otherwise: allow normal vertical scroll
         };
-    
+
         container.addEventListener('wheel', handleWheel, { passive: false });
-    
+
         return () => {
-          container.removeEventListener('wheel', handleWheel);
-          img.removeEventListener('load', setInitialScroll);
+            container.removeEventListener('wheel', handleWheel);
+            img.removeEventListener('load', setInitialScroll);
         };
     }, []);
     return(
@@ -98,22 +114,32 @@ const Parklet = () => {
             />
             <div className={styles.designSection}>
                 <img
-                src={collage}
+                src={model}
                 className={styles.prototype}
                 alt='prototype'
                 />
                 <div className={styles.designText}>
-                <h1 className={styles.designTitle}>
-                    Design Skills
-                </h1>
-                <p className={styles.designBody}>
-                    <b className={styles.bold}>Programs:</b> <br/>
-                    &emsp;&emsp;<i>Rhino</i> sketch different shade structure layouts <br/>
-                    &emsp;&emsp;<i>Photoshop</i> rendered parklet for visual aid <br/>
-                    &emsp;&emsp;<i>Illustrator</i> exploded view <br/>
-                </p>
+                    <h1 className={styles.designTitle}>
+                        Design Skills
+                    </h1>
+                    <p className={styles.designBody}>
+                        <b className={styles.bold}>Programs:</b> <br/>
+                        &emsp;&emsp;<i>Rhino</i> sketch different shade structure layouts <br/>
+                        &emsp;&emsp;<i>Photoshop</i> rendered parklet for visual aid <br/>
+                        &emsp;&emsp;<i>Illustrator</i> exploded view <br/>
+                    </p>
+                    <img
+                        src={render}
+                        className={styles.render}
+                        alt='render'
+                    />
                 </div>
             </div>
+            <img
+                src={plan}
+                className={styles.plan}
+                alt='plan'
+            />
         </div>
     );
 };

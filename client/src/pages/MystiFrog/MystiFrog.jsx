@@ -5,38 +5,51 @@ import video from './assets/video.mov';
 
 const MystiFrog = () => {
     const scrollRef = useRef(null);
-      const SCROLL_SPEED = 2; // change for faster/slower scrolling
+    const SCROLL_SPEED = 2; // change for faster/slower scrolling
     
     useEffect(() => {
         const container = scrollRef.current;
         if (!container) return;
-    
+
         const img = container.querySelector('img');
         if (!img) return;
-    
-        // Function to set initial scroll to midway
+
         const setInitialScroll = () => {
-          container.scrollLeft = img.scrollWidth / 32;
+            container.scrollLeft = img.scrollWidth / 32;
         };
-    
-        // If image is already loaded
+
         if (img.complete) {
-          setInitialScroll();
+            setInitialScroll();
         } else {
-          img.addEventListener('load', setInitialScroll);
+            img.addEventListener('load', setInitialScroll);
         }
-    
-        // Mouse wheel horizontal scrolling
-        const handleWheel = e => {
-          e.preventDefault();
-          container.scrollLeft += e.deltaY * SCROLL_SPEED;
+
+        const handleWheel = (e) => {
+            const { deltaY } = e;
+
+            const atLeftEdge = container.scrollLeft <= 0;
+            const atRightEdge =
+            container.scrollLeft + container.clientWidth >= container.scrollWidth - 1;
+
+            const scrollingRight = deltaY > 0;
+            const scrollingLeft = deltaY < 0;
+
+            // If we're NOT at an edge, force horizontal scrolling
+            if (
+            (!atLeftEdge && scrollingLeft) ||
+            (!atRightEdge && scrollingRight)
+            ) {
+            e.preventDefault();
+            container.scrollLeft += deltaY * SCROLL_SPEED;
+            }
+            // Otherwise: allow normal vertical scroll
         };
-    
+
         container.addEventListener('wheel', handleWheel, { passive: false });
-    
+
         return () => {
-          container.removeEventListener('wheel', handleWheel);
-          img.removeEventListener('load', setInitialScroll);
+            container.removeEventListener('wheel', handleWheel);
+            img.removeEventListener('load', setInitialScroll);
         };
     }, []);
     return(

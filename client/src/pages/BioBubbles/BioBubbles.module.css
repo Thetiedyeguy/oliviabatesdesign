@@ -147,12 +147,18 @@
 }
 
 .video{
-  width: 80%;
+  width: 76%;
   border-radius: 2rem;
-  margin: 0 10%;
+  margin: 0 12%;
 }
 
 .instructions {
-    width: 80%;
-    margin: 4rem 10%;
+    width: 76%;
+    margin: 4rem 12%;
+}
+
+.poster{
+    width: 76%;
+    height: 130vh;
+    margin: 2rem 12%;
 }
