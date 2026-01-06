@@ -84,12 +84,12 @@ const NatureNova = () => {
                     children’s toys are a good example. Nearly 80% of toys become <br/>
                     plastic waste in landfills within a year. <br/>
                     <br/>
-                    To address this, we looked at different types of toys and <br/>
+                    &emsp;&emsp;To address this, we looked at different types of toys and <br/>
                     materials, and designed building blocks made from gelatin. <br/>
                     This biopolymer makes the blocks edible and safer for children <br/>
                     than regular plastic toys, which can be dangerous if swallowed. <br/>
                     <br/>
-                    If kept in a dry, cool place, the blocks will last at least a <br/>
+                    &emsp;&emsp;If kept in a dry, cool place, the blocks will last at least a <br/>
                     year. Their stacking shape makes them easy to make with 3D- <br/>
                     printed molds, and the material can be made at home from <br/>
                     basic kitchen ingredients. This gives parents a sustainable DIY <br/>

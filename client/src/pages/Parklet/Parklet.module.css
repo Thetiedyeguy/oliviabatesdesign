@@ -124,7 +124,7 @@
 }
 
 .prototype{
-  width: 270%;
+  width: 100%;
   border-radius: 2rem;
 }
 
@@ -136,6 +136,7 @@
   margin-right: 12rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .designTitle{
@@ -163,4 +164,8 @@
   margin-top: 2rem;
   width: 100%;
   border-radius: 2rem;
+}
+
+.prototypeContainer {
+  width: 70%;
 }

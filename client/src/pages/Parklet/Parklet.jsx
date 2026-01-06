@@ -95,13 +95,13 @@ const Parklet = () => {
                     parklet is fully ADA compliant and provides spots to sit or <br/>
                     stand while eating, making it comfortable for both large <br/>
                     groups and smaller gatherings. <br/>
-
-                    To learn more about how the structure works in real life, <br/>
+                    <br/>
+                    &emsp;&emsp;To learn more about how the structure works in real life, <br/>
                     we built a full-size section of the parklet. We made the <br/>
                     prototype out of cardboard with a CNC machine, which helped <br/>
                     us study how light, shade, and enclosure feel at human scale. <br/>
                     <br/>
-                    This was my first time working on a team project, and I <br/>
+                    &emsp;&emsp;This was my first time working on a team project, and I <br/>
                     collaborated with two others. We took the best parts from each <br/>
                     of our three original designs and brought them together into <br/>
                     one unified parklet.
@@ -113,11 +113,13 @@ const Parklet = () => {
                 alt='collage'
             />
             <div className={styles.designSection}>
-                <img
-                src={model}
-                className={styles.prototype}
-                alt='prototype'
-                />
+                <div className={styles.prototypeContainer}>
+                    <img
+                    src={model}
+                    className={styles.prototype}
+                    alt='prototype'
+                    />
+                </div>
                 <div className={styles.designText}>
                     <h1 className={styles.designTitle}>
                         Design Skills
